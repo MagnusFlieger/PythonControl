@@ -1,3 +1,8 @@
+"""
+OLD VERSION for testing purpose only:
+testing for Python 2.7
+"""
+
 import pygame
 import serial
 from time import sleep
