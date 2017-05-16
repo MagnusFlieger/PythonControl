@@ -7,6 +7,7 @@ Hier kommt der ganze Code rein, der später auf den **Steuercomputer** mit Pytho
 ### Python 3.6.1 or higher
 
 download from https://www.python.org/downloads/
+custom installation: add system variable
 
 ### pygame
 
