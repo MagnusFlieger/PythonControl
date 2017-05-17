@@ -37,8 +37,8 @@ def forward():
         out = j.get_axis(1)
         print('GetAxisY')
         out = (out * 90.0) + 90.0
-        print(out)
         out = int(out)
+        print(out)
         move(out)
         sleep(0.3)
 
