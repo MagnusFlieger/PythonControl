@@ -7,7 +7,11 @@ import serial.tools.list_ports
 ports = list(serial.tools.list_ports.comports())
 serialport = ""
 
-j = ""
+
+pygame.init()
+j = pygame.joystick.Joystick(0)
+j.init()
+print('Initialized Joystick : %s' % j.get_name())
 
 def getcom():
     for port in ports:
@@ -19,10 +23,6 @@ def connections():
     print("Establishing connection to: %s" % serialport)
     ser = serial.Serial(serialport, 9600, timeout=1)
 
-    pygame.init()
-    j = pygame.joystick.Joystick(0)
-    j.init()
-    print('Initialized Joystick : %s' % j.get_name())
 
 
 
