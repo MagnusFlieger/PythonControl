@@ -24,10 +24,10 @@ def connections():
     ser = serial.Serial(serialport, 9600, timeout=1)
 
 
+def move(angle):
+    ser.write(angle)
 
-
-
-def move(out):
+def forward():
     while True:
         out = 0
         pygame.event.pump()
@@ -37,6 +37,8 @@ def move(out):
         print(out)
         out = int(out)
         move(out)
+        sleep(0.3)
+
 
 
 if __name__== "__main__":
