@@ -19,9 +19,12 @@ def getcom():
     print("Available Ports")
 
 def connections():
+    global serialport
     serialport = input("Enter Xbee Serialport: ")
     print("Establishing connection to: %s" % serialport)
+    global ser
     ser = serial.Serial(serialport, 9600, timeout=1)
+
 
 
 def move(angle):
