@@ -14,7 +14,7 @@ def getcom():
         print(port)
     print("Available Ports")
 
-def serconn():
+def connections():
     serialport = input("Enter Xbee Serialport: ")
     print("Establishing connection to: %s" % serialport)
     ser = serial.Serial(serialport, 9600, timeout=1)
