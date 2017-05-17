@@ -25,6 +25,15 @@ def connections():
 
 def move():
     while True:
+        out = 0
+        pygame.event.pump()
+        out = j.get_axis(1)
+        print 'GetAxisY'
+        out = (out * 90.0) + 90.0
+        print out
+        out = int(out)
+        move(out)
+
 
 
 if __name__== "__main__":
