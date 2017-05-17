@@ -44,4 +44,4 @@ def forward():
 if __name__== "__main__":
     getcom()
     connections()
-    move()
+    forward()
