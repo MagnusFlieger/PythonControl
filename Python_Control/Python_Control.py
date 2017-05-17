@@ -28,9 +28,9 @@ def move():
         out = 0
         pygame.event.pump()
         out = j.get_axis(1)
-        print 'GetAxisY'
+        print('GetAxisY')
         out = (out * 90.0) + 90.0
-        print out
+        print(out)
         out = int(out)
         move(out)
 
@@ -39,3 +39,4 @@ def move():
 if __name__== "__main__":
     getcom()
     connections()
+    move()
