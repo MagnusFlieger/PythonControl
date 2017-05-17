@@ -29,20 +29,16 @@ def forward():
         sleep(0.3)
 
 
-
-
 pygame.init()
 j = pygame.joystick.Joystick(0)
 j.init()
 print('Initialized Joystick : %s' % j.get_name())
 
 getcom()
+
 serialport = input("Enter Xbee Serialport: ")
 print("Establishing connection to: %s" % serialport)
 ser = serial.Serial(serialport, 9600, timeout=1)
-
-
-
 
 if __name__== "__main__":
     forward()
