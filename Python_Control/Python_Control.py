@@ -1,7 +1,7 @@
 import pygame
 import serial
-import time
 import sys
+from time import sleep
 
 import serial.tools.list_ports
 
@@ -22,6 +22,7 @@ def connections():
     j = pygame.joystick.Joystick(0)
     j.init()
     print('Initialized Joystick : %s' % j.get_name())
+
 
 if __name__== "__main__":
     getcom()
