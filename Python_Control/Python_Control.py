@@ -27,7 +27,7 @@ def connections():
 
 
 
-def move():
+def move(out):
     while True:
         out = 0
         pygame.event.pump()
