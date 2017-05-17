@@ -23,6 +23,9 @@ def connections():
     j.init()
     print('Initialized Joystick : %s' % j.get_name())
 
+def move():
+    while True:
+
 
 if __name__== "__main__":
     getcom()
