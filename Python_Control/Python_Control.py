@@ -8,6 +8,29 @@ ports = list(serial.tools.list_ports.comports())
 serialport = ""
 
 
+def getcom():
+    for port in ports:
+        print(port)
+    print("Available Ports")
+
+def move(angle):
+    ser.write(angle)
+
+def forward():
+    while True:
+        out = 0
+        pygame.event.pump()
+        out = j.get_axis(1)
+        print('GetAxisY')
+        out = (out * 90.0) + 90.0
+        out = int(out)
+        print(out)
+        move(out)
+        sleep(0.3)
+
+
+
+
 pygame.init()
 j = pygame.joystick.Joystick(0)
 j.init()
