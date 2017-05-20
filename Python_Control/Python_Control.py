@@ -27,6 +27,10 @@ def move(angle):
 #Function that runs forever after all is set up
 def forward():
     while True:
+        #Read from serial
+        #TODO: Is everything ok on the Arduino?
+        
+        #Get values from joystick
         out = 0
         pygame.event.pump()
         out = j.get_axis(1)
@@ -34,7 +38,11 @@ def forward():
         out = (out * 90.0) + 90.0
         out = int(out)
         print(out)
+
+        #Write to serial
         move(out)
+
+        #Sleep
         sleep(0.3)
 
 #Setting up joystick
