@@ -37,7 +37,7 @@ def forward():
         move(out)
         sleep(0.3)
 
-#Setting up
+#Setting up joystick
 pygame.init()
 
 try:
@@ -49,11 +49,13 @@ except:
 j.init()
 print('Initialized Joystick : %s' % j.get_name())
 
+#Setting up XBee Serial
 getcom()
 
 serialport = input("Enter Xbee Serialport: ")
 print("Establishing connection to: %s" % serialport)
 ser = serial.Serial(serialport, 9600, timeout=1)
 
+#Setting up finished, now loop
 if __name__== "__main__":
     forward()
