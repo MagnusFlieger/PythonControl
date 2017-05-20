@@ -1,9 +1,11 @@
+#Imports
 import pygame
 import serial
 import sys
 from time import sleep
 import serial.tools.list_ports
 
+#Variables
 ports = list(serial.tools.list_ports.comports())
 serialport = ""
 
@@ -13,9 +15,11 @@ def getcom():
         print(port)
     print("Available Ports")
 
+#Send the position out to the servo
 def move(angle):
     ser.write(angle)
 
+#Function that runs forever after all is set up
 def forward():
     while True:
         out = 0
@@ -28,7 +32,7 @@ def forward():
         move(out)
         sleep(0.3)
 
-
+#Setting up
 pygame.init()
 j = pygame.joystick.Joystick(0)
 j.init()
