@@ -11,6 +11,11 @@ serialport = ""
 
 
 def getcom():
+    #Is list ports empty?
+    if not ports:
+        print("No Serial Ports found!")
+        exit()
+    #Display all available ports
     for port in ports:
         print(port)
     print("Available Ports")
