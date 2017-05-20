@@ -34,7 +34,13 @@ def forward():
 
 #Setting up
 pygame.init()
-j = pygame.joystick.Joystick(0)
+
+try:
+    j = pygame.joystick.Joystick(0)
+except:
+    print("Error initializing joystick. ")
+    exit()
+
 j.init()
 print('Initialized Joystick : %s' % j.get_name())
 
