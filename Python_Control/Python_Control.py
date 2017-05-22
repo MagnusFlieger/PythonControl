@@ -18,7 +18,7 @@ def getcom():
     #Display all available ports
     for port in ports:
         print(port)
-    print("Available Ports")
+    print("Available Ports: ")
 
 #Send the position out to the servo
 def move(angle):
