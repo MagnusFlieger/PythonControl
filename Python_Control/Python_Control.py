@@ -43,7 +43,7 @@ def forward():
         move(out)
 
         #Sleep
-        sleep(0.3)
+        sleep(2)
 
 #Setting up joystick
 pygame.init()
