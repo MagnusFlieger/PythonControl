@@ -74,5 +74,5 @@ print("Establishing connection to: %s" % serialport)
 ser = serial.Serial(serialport, 9600, timeout=1)
 
 #Setting up finished, now loop
-if __name__== "__main__":
+if __name__ == "__main__":
     forward()
