@@ -37,10 +37,19 @@ def forward():
         print('GetAxisY')
         out = (out * 90.0) + 90.0
         out = int(out)
+        out = bytes([out])
         print(out)
 
         #Write to serial
-        move(out)
+        #inputFromUser = input("Enter value: ")
+
+        #valueToWrite = inputFromUser.encode('utf-8')
+        
+        #ser.write(valueToWrite)
+
+        ser.write(out)
+
+        print(ser.read_all())
 
         #Sleep
         sleep(2)
