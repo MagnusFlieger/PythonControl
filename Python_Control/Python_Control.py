@@ -52,7 +52,7 @@ def forward():
         print(ser.read_all())
 
         #Sleep
-        sleep(2)
+        sleep(0.3)
 
 #Setting up joystick
 pygame.init()
