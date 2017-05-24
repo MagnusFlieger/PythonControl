@@ -15,10 +15,15 @@ def getcom():
     if not ports:
         print("No Serial Ports found!")
         exit()
-    #Display all available ports
+    #If there is only one port available, automatically use that one
+    if len(ports) == 1:
+        return ports[0].device
+
+    #Display all available ports if there are more than one available
     for port in ports:
         print(port)
     print("Available Ports: ")
+    return
 
 #Send the position out to the servo
 def move(angle):
@@ -67,9 +72,13 @@ j.init()
 print('Initialized Joystick : %s' % j.get_name())
 
 #Setting up XBee Serial
-getcom()
+resultFromGetCom = getcom()
 
-serialport = input("Enter Xbee Serialport: ")
+if resultFromGetCom != "":
+    serialport = resultFromGetCom
+else:
+    serialport = input("Enter Xbee Serialport: ")
+
 print("Establishing connection to: %s" % serialport)
 ser = serial.Serial(serialport, 9600, timeout=1)
 
