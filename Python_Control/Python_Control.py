@@ -30,34 +30,36 @@ def move(angle):
     ser.write(angle)
 
 #Function that runs forever after all is set up
-def forward():
+def loop():
     while True:
-        #Read from serial
-        #TODO: Is everything ok on the Arduino?
+        update()
+        sleep(0.1)
+
+
+def update():
+    #Read from serial
+    #TODO: Is everything ok on the Arduino?
         
-        #Get values from joystick
-        out = 0
-        pygame.event.pump()
-        out = j.get_axis(1)
-        print('GetAxisY')
-        out = (out * 90.0) + 90.0
-        out = int(out)
-        out = bytes([out])
-        print(out)
+    #Get values from joystick
+    out = 0
+    pygame.event.pump()
+    out = j.get_axis(1)
+    print('GetAxisY')
+    out = (out * 90.0) + 90.0
+    out = int(out)
+    out = bytes([out])
+    print(out)
 
-        #Write to serial
-        #inputFromUser = input("Enter value: ")
+    #Write to serial
+    #inputFromUser = input("Enter value: ")
 
-        #valueToWrite = inputFromUser.encode('utf-8')
+    #valueToWrite = inputFromUser.encode('utf-8')
         
-        #ser.write(valueToWrite)
+    #ser.write(valueToWrite)
 
-        ser.write(out)
+    ser.write(out)
 
-        print(ser.read_all())
-
-        #Sleep
-        sleep(0.3)
+    print(ser.read_all())
 
 #Setting up joystick
 pygame.init()
@@ -84,4 +86,4 @@ ser = serial.Serial(serialport, 9600, timeout=1)
 
 #Setting up finished, now loop
 if __name__ == "__main__":
-    forward()
+    loop()
