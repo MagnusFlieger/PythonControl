@@ -118,7 +118,9 @@ def update():
     #ser.write(valueToWrite)
 
     #Calibrate values so they fit into the 0-180 range
-
+    outSpeedSetting = currentSpeedSetting
+    outLeftRightSetting = currentLeftRightSetting + 90
+    outUpDownSetting = currentUpDownSetting + 90
 
     ser.write(bytes([currentSpeedSetting]))
 
