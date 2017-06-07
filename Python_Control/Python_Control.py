@@ -113,7 +113,7 @@ def update():
     #inputFromUser = input("Enter value: ")
 
     #valueToWrite = inputFromUser.encode('utf-8')
-        
+    
     #ser.write(valueToWrite)
 
     #Calibrate values so they fit into the 0-180 range
