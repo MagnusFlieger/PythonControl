@@ -27,10 +27,10 @@ def getcom():
         return ports[0].device
 
     #Display all available ports if there are more than one available
+    print("Available Ports: ")
     for port in ports:
         print(port)
-    print("Available Ports: ")
-    return
+    return input("Enter Xbee Serialport: ")
 
 #Send the position out to the servo
 def move(angle):
@@ -83,22 +83,21 @@ pygame.init()
 try:
     j = pygame.joystick.Joystick(0)
 except:
-    print("Error initializing joystick. ")
+    print("Error initializing joystick. Exiting now")
     exit()
 
 j.init()
 print('Initialized Joystick : %s' % j.get_name())
 
 #Setting up XBee Serial
-resultFromGetCom = getcom()
 
-if resultFromGetCom != "":
-    serialport = resultFromGetCom
-else:
-    serialport = input("Enter Xbee Serialport: ")
-
-print("Establishing connection to: %s" % serialport)
-ser = serial.Serial(serialport, 9600, timeout=1)
+try:
+    serialport = getcom()
+    print("Establishing connection to: %s" % serialport)
+    ser = serial.Serial(serialport, 9600, timeout=1)
+except:
+    print("Error establishing connection to serial port. Exiting now")
+    exit()
 
 #Setting up finished, now loop
 if __name__ == "__main__":
