@@ -1,8 +1,9 @@
 #Imports
-import pygame
-import serial
 import sys
 from time import sleep
+
+import pygame
+import serial
 import serial.tools.list_ports
 
 #CONSTANTS
