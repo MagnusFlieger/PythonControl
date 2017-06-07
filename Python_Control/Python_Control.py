@@ -53,21 +53,18 @@ def update():
     #TODO: Is everything ok on the Arduino?
         
     #Get values from joystick
-    out = 0
+    deltaSpeed = 0
     pygame.event.pump()
-    out = j.get_axis(2)
+    deltaSpeed = j.get_axis(2)
     print('GetAxisY')
     #out = (out * 90.0) + 90.0
-    out = int(out * 5)
-    print(out)
-    if out < 0:
-        currentSpeedSetting = currentSpeedSetting + out
-        if currentSpeedSetting < SPEED_MIN:
-            currentSpeedSetting = SPEED_MIN
-    elif out > 0:
-        currentSpeedSetting = currentSpeedSetting + out
-        if currentSpeedSetting > SPEED_MAX:
-            currentSpeedSetting = SPEED_MAX
+    deltaSpeed = int(deltaSpeed * 5)
+    print(deltaSpeed)
+    currentSpeedSetting = currentSpeedSetting + deltaSpeed
+    if currentSpeedSetting < SPEED_MIN:
+        currentSpeedSetting = SPEED_MIN
+    if currentSpeedSetting > SPEED_MAX:
+        currentSpeedSetting = SPEED_MAX
     print("Current speed setting: " + str(currentSpeedSetting))
 
     #Write to serial
