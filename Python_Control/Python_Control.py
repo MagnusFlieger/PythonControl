@@ -10,6 +10,10 @@ SPEED_MIN = 0
 SPEED_MAX = 100
 SERVO_MIN = 0
 SERVO_MAX = 180
+LR_MIN = -90
+LR_MAX = 90
+UD_MIN = -90
+UD_MAX = 90
 
 #Variables
 ports = list(serial.tools.list_ports.comports())
@@ -17,6 +21,8 @@ serialport = ""
 
 #Speed setting: SPEED_MIN - SPEED_MAX
 currentSpeedSetting = SPEED_MIN
+currentLeftRightSetting = 0
+currentUpDownSetting = 0
 
 
 def getcom():
@@ -54,18 +60,34 @@ def update():
         
     #Get values from joystick
     deltaSpeed = 0
+    deltaLeftRight = 0
+    deltaUpDown = 0
+
     pygame.event.pump()
+
+    #Get the values from the axes
     deltaSpeed = j.get_axis(2)
-    print('GetAxisY')
+    deltaLeftRight = j.get_axis(4)
+    deltaUpDown = j.get_axis(3)
+    
+    #Figure out delta values
     #out = (out * 90.0) + 90.0
     deltaSpeed = int(deltaSpeed * 5)
-    print(deltaSpeed)
+
+    print("DeltaSpeed: " + str(deltaSpeed))
+    print("DeltaLeftRight: " + str(deltaLeftRight))
+    print("DeltaUpDown: " + str(deltaUpDown))
+
+    #Calculate new current settings
     currentSpeedSetting = currentSpeedSetting + deltaSpeed
     if currentSpeedSetting < SPEED_MIN:
         currentSpeedSetting = SPEED_MIN
     if currentSpeedSetting > SPEED_MAX:
         currentSpeedSetting = SPEED_MAX
+
     print("Current speed setting: " + str(currentSpeedSetting))
+    print("Current left right setting: "+ str(currentLeftRightSetting))
+    print("Current up down setting: " + str(currentUpDownSetting))
 
     #Write to serial
     #inputFromUser = input("Enter value: ")
