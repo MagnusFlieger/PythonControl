@@ -5,6 +5,7 @@ from time import sleep
 import pygame
 import serial
 import serial.tools.list_ports
+#import GUI
 
 #CONSTANTS
 SPEED_MIN = 0
