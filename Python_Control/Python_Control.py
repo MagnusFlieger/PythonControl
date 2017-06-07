@@ -8,14 +8,17 @@ import serial.tools.list_ports
 #CONSTANTS
 SPEED_MIN = 0
 SPEED_MAX = 100
+SPEED_FACTOR = 5
 SERVO_MIN = 0
 SERVO_MAX = 180
 LR_MIN = -90
 LR_MAX = 90
 LR_HALF = 0
+LR_FACTOR = 5
 UD_MIN = -90
 UD_MAX = 90
 UD_HALF = 0
+UD_FACTOR = 5
 
 #Variables
 ports = list(serial.tools.list_ports.comports())
@@ -76,9 +79,9 @@ def update():
     
     #Figure out delta values
     #out = (out * 90.0) + 90.0
-    deltaSpeed = int(deltaSpeed * 5)
-    deltaLeftRight = int(deltaLeftRight * 5)
-    deltaUpDown = int(deltaUpDown * 5)
+    deltaSpeed = int(deltaSpeed * SPEED_FACTOR)
+    deltaLeftRight = int(deltaLeftRight * LR_FACTOR)
+    deltaUpDown = int(deltaUpDown * UD_FACTOR)
 
     print("DeltaSpeed: " + str(deltaSpeed))
     print("DeltaLeftRight: " + str(deltaLeftRight))
