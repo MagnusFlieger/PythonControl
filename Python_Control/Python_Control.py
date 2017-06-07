@@ -5,9 +5,16 @@ import sys
 from time import sleep
 import serial.tools.list_ports
 
+#CONSTANTS
+SPEED_MIN = 0
+SPEED_MAX = 100
+
 #Variables
 ports = list(serial.tools.list_ports.comports())
 serialport = ""
+
+#Speed setting: SPEED_MIN - SPEED_MAX
+currentSpeedSetting = SPEED_MIN
 
 
 def getcom():
@@ -37,18 +44,27 @@ def loop():
 
 
 def update():
+    global currentSpeedSetting
+
     #Read from serial
+    recieved = ser.read_all()
     #TODO: Is everything ok on the Arduino?
         
     #Get values from joystick
     out = 0
     pygame.event.pump()
-    out = j.get_axis(1)
+    out = j.get_axis(2)
     print('GetAxisY')
-    out = (out * 90.0) + 90.0
-    out = int(out)
-    out = bytes([out])
+    #out = (out * 90.0) + 90.0
+    out = int(out * 2)
     print(out)
+    if out < 0:
+        if currentSpeedSetting > SPEED_MIN:
+            currentSpeedSetting = currentSpeedSetting + out
+    elif out > 0:
+        if currentSpeedSetting < SPEED_MAX:
+            currentSpeedSetting = currentSpeedSetting + out
+    print("Current speed setting: " + str(currentSpeedSetting))
 
     #Write to serial
     #inputFromUser = input("Enter value: ")
@@ -57,7 +73,7 @@ def update():
         
     #ser.write(valueToWrite)
 
-    ser.write(out)
+    #ser.write(bytes([currentSpeedSetting]))
 
     print(ser.read_all())
 
