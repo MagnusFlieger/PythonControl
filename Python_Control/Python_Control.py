@@ -61,15 +61,13 @@ def update():
     out = int(out * 5)
     print(out)
     if out < 0:
-        if currentSpeedSetting > SPEED_MIN:
-            currentSpeedSetting = currentSpeedSetting + out
-        if currentSpeedSetting < 0:
-            currentSpeedSetting = 0
+        currentSpeedSetting = currentSpeedSetting + out
+        if currentSpeedSetting < SPEED_MIN:
+            currentSpeedSetting = SPEED_MIN
     elif out > 0:
-        if currentSpeedSetting < SPEED_MAX:
-            currentSpeedSetting = currentSpeedSetting + out
-        if currentSpeedSetting > 100:
-            currentSpeedSetting = 100
+        currentSpeedSetting = currentSpeedSetting + out
+        if currentSpeedSetting > SPEED_MAX:
+            currentSpeedSetting = SPEED_MAX
     print("Current speed setting: " + str(currentSpeedSetting))
 
     #Write to serial
@@ -80,6 +78,7 @@ def update():
     #ser.write(valueToWrite)
 
     #Calibrate values so they fit into the 0-180 range
+
 
     ser.write(bytes([currentSpeedSetting]))
 
