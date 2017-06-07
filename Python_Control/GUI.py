@@ -32,10 +32,10 @@ class TextPrint:
 pygame.init()
  
 # Set the width and height of the screen [width,height]
-size = [500, 700]
+size = [500, 500]
 screen = pygame.display.set_mode(size)
 
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Control")
 
 #Loop until the user clicks the close button.
 done = False
