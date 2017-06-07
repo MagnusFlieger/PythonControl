@@ -12,8 +12,10 @@ SERVO_MIN = 0
 SERVO_MAX = 180
 LR_MIN = -90
 LR_MAX = 90
+LR_HALF = 0
 UD_MIN = -90
 UD_MAX = 90
+UD_HALF = 0
 
 #Variables
 ports = list(serial.tools.list_ports.comports())
@@ -21,8 +23,8 @@ serialport = ""
 
 #Speed setting: SPEED_MIN - SPEED_MAX
 currentSpeedSetting = SPEED_MIN
-currentLeftRightSetting = 0
-currentUpDownSetting = 0
+currentLeftRightSetting = LR_HALF
+currentUpDownSetting = UD_HALF
 
 
 def getcom():
@@ -53,6 +55,8 @@ def loop():
 
 def update():
     global currentSpeedSetting
+    global currentLeftRightSetting
+    global currentUpDownSetting
 
     #Read from serial
     recieved = ser.read_all()
@@ -73,6 +77,8 @@ def update():
     #Figure out delta values
     #out = (out * 90.0) + 90.0
     deltaSpeed = int(deltaSpeed * 5)
+    deltaLeftRight = int(deltaLeftRight * 5)
+    deltaUpDown = int(deltaUpDown * 5)
 
     print("DeltaSpeed: " + str(deltaSpeed))
     print("DeltaLeftRight: " + str(deltaLeftRight))
@@ -84,6 +90,16 @@ def update():
         currentSpeedSetting = SPEED_MIN
     if currentSpeedSetting > SPEED_MAX:
         currentSpeedSetting = SPEED_MAX
+    currentLeftRightSetting = currentLeftRightSetting + deltaLeftRight
+    if currentLeftRightSetting < LR_MIN:
+        currentLeftRightSetting = LR_MIN
+    if currentLeftRightSetting > LR_MAX:
+        currentLeftRightSetting = LR_MAX
+    currentUpDownSetting = currentUpDownSetting + deltaUpDown
+    if currentUpDownSetting < UD_MIN:
+        currentUpDownSetting = UD_MIN
+    if currentUpDownSetting > UD_MAX:
+        currentUpDownSetting = UD_MAX
 
     print("Current speed setting: " + str(currentSpeedSetting))
     print("Current left right setting: "+ str(currentLeftRightSetting))
@@ -101,7 +117,7 @@ def update():
 
     ser.write(bytes([currentSpeedSetting]))
 
-    print(ser.read_all())
+    print(recieved)
 
 #Setting up joystick
 pygame.init()
