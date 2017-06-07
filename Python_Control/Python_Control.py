@@ -8,6 +8,8 @@ import serial.tools.list_ports
 #CONSTANTS
 SPEED_MIN = 0
 SPEED_MAX = 100
+SERVO_MIN = 0
+SERVO_MAX = 180
 
 #Variables
 ports = list(serial.tools.list_ports.comports())
@@ -20,7 +22,7 @@ currentSpeedSetting = SPEED_MIN
 def getcom():
     #Is list ports empty?
     if not ports:
-        print("No Serial Ports found!")
+        print("No Serial Ports found! Exiting now")
         exit()
     #If there is only one port available, automatically use that one
     if len(ports) == 1:
@@ -56,14 +58,18 @@ def update():
     out = j.get_axis(2)
     print('GetAxisY')
     #out = (out * 90.0) + 90.0
-    out = int(out * 2)
+    out = int(out * 5)
     print(out)
     if out < 0:
         if currentSpeedSetting > SPEED_MIN:
             currentSpeedSetting = currentSpeedSetting + out
+        if currentSpeedSetting < 0:
+            currentSpeedSetting = 0
     elif out > 0:
         if currentSpeedSetting < SPEED_MAX:
             currentSpeedSetting = currentSpeedSetting + out
+        if currentSpeedSetting > 100:
+            currentSpeedSetting = 100
     print("Current speed setting: " + str(currentSpeedSetting))
 
     #Write to serial
@@ -73,7 +79,9 @@ def update():
         
     #ser.write(valueToWrite)
 
-    #ser.write(bytes([currentSpeedSetting]))
+    #Calibrate values so they fit into the 0-180 range
+
+    ser.write(bytes([currentSpeedSetting]))
 
     print(ser.read_all())
 
