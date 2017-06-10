@@ -23,9 +23,12 @@ UD_MAX = 90
 UD_HALF = 0
 UD_FACTOR = 5
 
+BYTES_EXPECTED_TO_RECIEVE = 1
+
 #Variables
 ports = list(serial.tools.list_ports.comports())
 serialport = ""
+everythingFine = True
 
 #Speed setting: SPEED_MIN - SPEED_MAX
 currentSpeedSetting = SPEED_MIN
@@ -66,7 +69,14 @@ def update():
 
     #Read from serial
     recieved = ser.read_all()
-    #TODO: Is everything ok on the Arduino?
+    #Did we get anything from the Arduino?
+    if not recieved:
+        #Nothing recieved!
+        everythingFine = False
+
+    if len(recieved) != BYTES_EXPECTED_TO_RECIEVE:
+        #Incomplete/insufficient data recieved!
+
     #Get status report
     # A - everything ok
     # B - battery low
