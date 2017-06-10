@@ -4,6 +4,10 @@ import pygame
 BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
 
+# Progress bar constants
+PROGRESSBAR_WIDTH = 300
+PROGRESSBAR_HEIGHT = 30
+
 # This is a simple class that will help us print to the screen
 # It has nothing to do with the joysticks, just outputting the
 # information.
@@ -16,6 +20,11 @@ class TextPrint:
         textBitmap = self.font.render(textString, True, BLACK)
         screen.blit(textBitmap, [self.x, self.y])
         self.y += self.line_height
+
+    def drawProgressBar(self, screen, progress):
+        pygame.draw.rect(screen, BLACK, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH,PROGRESSBAR_HEIGHT), 1)
+        pygame.draw.rect(screen, BLACK, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH*progress,PROGRESSBAR_HEIGHT))
+        self.y += PROGRESSBAR_HEIGHT
         
     def reset(self):
         self.x = 10
@@ -42,41 +51,45 @@ done = False
 
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
-
-# Initialize the joysticks
-pygame.joystick.init()
     
 # Get ready to print
 textPrint = TextPrint()
 
 # -------- Main Program Loop -----------
-while done==False:
-    # EVENT PROCESSING STEP
-    for event in pygame.event.get(): # User did something
-        if event.type == pygame.QUIT: # If user clicked close
-            done=True # Flag that we are done so we exit this loop
+if __name__ == "__main__": 
+    while done==False:
+        # EVENT PROCESSING STEP
+        for event in pygame.event.get(): # User did something
+            if event.type == pygame.QUIT: # If user clicked close
+                done=True # Flag that we are done so we exit this loop
             
  
-    # DRAWING STEP
-    # First, clear the screen to white. Don't put other drawing commands
-    # above this, or they will be erased with this command.
-    screen.fill(WHITE)
-    textPrint.reset()
+        # DRAWING STEP
+        # First, clear the screen to white. Don't put other drawing commands
+        # above this, or they will be erased with this command.
+        screen.fill(WHITE)
+        textPrint.reset()
 
-    # Get count of joysticks
-    textPrint.print(screen, "Hello")
-    textPrint.print(screen, "World")
+        # Get count of joysticks
+        textPrint.print(screen, "Hello")
+        textPrint.print(screen, "World")
+
+        textPrint.indent()
+        textPrint.drawProgressBar(screen, 0.3)
+        textPrint.unindent()
+
+        textPrint.print(screen, "Hi")
 
     
-    # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
+        # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
     
-    # Go ahead and update the screen with what we've drawn.
-    pygame.display.flip()
+        # Go ahead and update the screen with what we've drawn.
+        pygame.display.flip()
 
-    # Limit to 20 frames per second
-    clock.tick(20)
+        # Limit to 20 frames per second
+        clock.tick(20)
     
-# Close the window and quit.
-# If you forget this line, the program will 'hang'
-# on exit if running from IDLE.
-pygame.quit ()
+    # Close the window and quit.
+    # If you forget this line, the program will 'hang'
+    # on exit if running from IDLE.
+    pygame.quit ()
