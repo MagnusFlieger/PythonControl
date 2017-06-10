@@ -141,12 +141,12 @@ def updateGUI():
 
     textPrint.print(screen, "Left-Right")
     textPrint.indent()
-    textPrint.drawProgressBar(screen, (currentLeftRightSetting / 90 + 0.45))
+    textPrint.drawProgressBar(screen, (currentLeftRightSetting / 180 + 0.50))
     textPrint.unindent()
 
     textPrint.print(screen, "Up-Down")
     textPrint.indent()
-    textPrint.drawProgressBar(screen, (currentUpDownSetting / 90 + 0.45))
+    textPrint.drawProgressBar(screen, (currentUpDownSetting / 180 + 0.50))
     textPrint.unindent()
 
     textPrint.print(screen, "Current speed setting: " + str(currentSpeedSetting))
