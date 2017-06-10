@@ -21,6 +21,9 @@ class TextPrint:
         screen.blit(textBitmap, [self.x, self.y])
         self.y += self.line_height
 
+    def printEmptyLine(self, screen):
+        self.y += self.line_height
+
     def drawProgressBar(self, screen, progress):
         pygame.draw.rect(screen, BLACK, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH,PROGRESSBAR_HEIGHT), 1)
         pygame.draw.rect(screen, BLACK, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH*progress,PROGRESSBAR_HEIGHT))
@@ -37,32 +40,32 @@ class TextPrint:
     def unindent(self):
         self.x -= 10
     
-
-pygame.init()
- 
-# Set the width and height of the screen [width,height]
-size = [500, 500]
-screen = pygame.display.set_mode(size)
-
-pygame.display.set_caption("Control")
-
-#Loop until the user clicks the close button.
-done = False
-
-# Used to manage how fast the screen updates
-clock = pygame.time.Clock()
-    
-# Get ready to print
-textPrint = TextPrint()
-
-# -------- Main Program Loop -----------
 if __name__ == "__main__": 
-    while done==False:
+
+    pygame.init()
+
+    # Set the width and height of the screen [width,height]
+    size = [500, 500]
+    screen = pygame.display.set_mode(size)
+
+    pygame.display.set_caption("Control")
+
+    #Loop until the user clicks the close button.
+    done = False
+
+    # Used to manage how fast the screen updates
+    clock = pygame.time.Clock()
+    
+    # Get ready to print
+    textPrint = TextPrint()
+
+    # -------- Main Program Loop -----------
+
+    while not done:
         # EVENT PROCESSING STEP
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
-                done=True # Flag that we are done so we exit this loop
-            
+                done = True # Flag that we are done so we exit this loop
  
         # DRAWING STEP
         # First, clear the screen to white. Don't put other drawing commands

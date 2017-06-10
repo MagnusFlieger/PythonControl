@@ -81,7 +81,6 @@ def update():
     deltaUpDown = j.get_axis(3)
     
     #Figure out delta values
-    #out = (out * 90.0) + 90.0
     deltaSpeed = int(deltaSpeed * SPEED_FACTOR)
     deltaLeftRight = int(deltaLeftRight * LR_FACTOR)
     deltaUpDown = int(deltaUpDown * UD_FACTOR)
@@ -104,20 +103,12 @@ def update():
         currentUpDownSetting = UD_MAX
 
     #Write to serial
-    #inputFromUser = input("Enter value: ")
-
-    #valueToWrite = inputFromUser.encode('utf-8')
-
-    #ser.write(valueToWrite)
-
     #Calibrate values so they fit into the 0-180 range
     outSpeedSetting = currentSpeedSetting
     outLeftRightSetting = currentLeftRightSetting + 90
     outUpDownSetting = currentUpDownSetting + 90
 
-    ser.write(bytes([currentSpeedSetting]))
-
-    print(recieved)
+    ser.write(bytes([outSpeedSetting]))
 
 
 def updateGUI():
@@ -153,6 +144,9 @@ def updateGUI():
     textPrint.print(screen, "Current speed setting: " + str(currentSpeedSetting))
     textPrint.print(screen, "Current left right setting: "+ str(currentLeftRightSetting))
     textPrint.print(screen, "Current up down setting: " + str(currentUpDownSetting))
+
+    textPrint.printEmptyLine(screen)
+    textPrint.print(screen, "MAGNUSFLIEGER STATUS")
     
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
     # Go ahead and update the screen with what we've drawn.
