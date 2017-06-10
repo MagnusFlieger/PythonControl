@@ -67,6 +67,21 @@ def update():
     #Read from serial
     recieved = ser.read_all()
     #TODO: Is everything ok on the Arduino?
+    #Get status report
+    # A - everything ok
+    # B - battery low
+    # C - other battery error
+    # D - motor error
+    # E - servo error
+    # F - sensor error
+    # G - other hardware error
+    # H - internal Arduino error
+    # I - other error
+    #statusReport = recieved[0]
+
+    #Get current servo positions
+
+    #Get other data
         
     #Get values from joystick
     deltaSpeed = 0
@@ -79,6 +94,9 @@ def update():
     deltaSpeed = j.get_axis(2)
     deltaLeftRight = j.get_axis(4)
     deltaUpDown = j.get_axis(3)
+
+    #Get the values from the buttons
+    #TODO: BUTTONS
     
     #Figure out delta values
     deltaSpeed = int(deltaSpeed * SPEED_FACTOR)
@@ -124,7 +142,7 @@ def updateGUI():
     textPrint.reset()
 
     # Get count of joysticks
-    textPrint.print(screen, "CONTROL PANEL")
+    textPrint.print(screen, "CONTROL PANEL", GUI.BLUE)
 
     textPrint.print(screen, "Speed")
     textPrint.indent()
@@ -146,7 +164,7 @@ def updateGUI():
     textPrint.print(screen, "Current up down setting: " + str(currentUpDownSetting))
 
     textPrint.printEmptyLine(screen)
-    textPrint.print(screen, "MAGNUSFLIEGER STATUS")
+    textPrint.print(screen, "MAGNUSFLIEGER STATUS", GUI.BLUE)
     
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
     # Go ahead and update the screen with what we've drawn.

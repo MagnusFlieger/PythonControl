@@ -3,6 +3,9 @@ import pygame
 # Define some colors
 BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
+BLUE =  (  0,   0, 255)
+GREEN = (  0, 255,   0)
+RED =   (255,   0,   0)
 
 # Progress bar constants
 PROGRESSBAR_WIDTH = 300
@@ -16,8 +19,8 @@ class TextPrint:
         self.reset()
         self.font = pygame.font.Font(None, 20)
 
-    def print(self, screen, textString):
-        textBitmap = self.font.render(textString, True, BLACK)
+    def print(self, screen, textString, color = BLACK):
+        textBitmap = self.font.render(textString, True, color)
         screen.blit(textBitmap, [self.x, self.y])
         self.y += self.line_height
 
