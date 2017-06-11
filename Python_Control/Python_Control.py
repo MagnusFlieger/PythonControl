@@ -37,6 +37,10 @@ currentSpeedSetting = SPEED_MIN
 currentLeftRightSetting = LR_HALF
 currentUpDownSetting = UD_HALF
 
+currentSpeedPosition = 0
+currentLeftRightPosition = 0
+currentUpDownPosition = 0
+
 def getCOM():
     #Is list ports empty?
     if not ports:
@@ -83,7 +87,6 @@ def update():
             errorMessage = "Wrong amount of data recieved!"
     
     else:
-        pass
         #Get status report
         # A - everything ok
         # B - battery low
@@ -94,9 +97,17 @@ def update():
         # G - other hardware error
         # H - internal Arduino error
         # I - other error
-        #statusReport = recieved[0]
+        statusReport = recieved[0]
+
+        if statusReport != 'A':
+            pass
+        else:
+            pass
 
         #Get current servo positions
+        currentSpeedPosition = recieved[1]
+        currentLeftRightPosition = recieved[2]
+        currentUpDownPosition = recieved[3]
 
         #Get other data
         
