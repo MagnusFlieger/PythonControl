@@ -22,14 +22,23 @@ class TextPrint:
     def print(self, screen, textString, color = BLACK):
         textBitmap = self.font.render(textString, True, color)
         screen.blit(textBitmap, [self.x, self.y])
+
+    def printLine(self, screen, textString, color = BLACK):
+        textBitmap = self.font.render(textString, True, color)
+        screen.blit(textBitmap, [self.x, self.y])
         self.y += self.line_height
 
     def printEmptyLine(self, screen):
         self.y += self.line_height
 
-    def drawProgressBar(self, screen, progress):
-        pygame.draw.rect(screen, BLACK, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH,PROGRESSBAR_HEIGHT), 1)
-        pygame.draw.rect(screen, BLACK, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH*progress,PROGRESSBAR_HEIGHT))
+    def drawProgressBar(self, screen, progress, color = BLACK):
+        pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH,PROGRESSBAR_HEIGHT), 1)
+        pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH*progress,PROGRESSBAR_HEIGHT))
+        self.y += PROGRESSBAR_HEIGHT
+
+    def drawPositiveNegativeProgressBar(self, screen, progress, color = BLACK):
+        pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH, PROGRESSBAR_HEIGHT), 1)
+        pygame.draw.rect(screen, color, pygame.Rect(self.x + PROGRESSBAR_WIDTH/2, self.y, PROGRESSBAR_WIDTH/2*progress, PROGRESSBAR_HEIGHT))
         self.y += PROGRESSBAR_HEIGHT
         
     def reset(self):

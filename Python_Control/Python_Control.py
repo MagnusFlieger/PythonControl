@@ -29,6 +29,8 @@ BYTES_EXPECTED_TO_RECIEVE = 1
 ports = list(serial.tools.list_ports.comports())
 serialport = ""
 everythingFine = True
+errorMessage = ""
+recieved = None
 
 #Speed setting: SPEED_MIN - SPEED_MAX
 currentSpeedSetting = SPEED_MIN
@@ -67,6 +69,8 @@ def update():
     global currentLeftRightSetting
     global currentUpDownSetting
 
+    global recieved
+
     #Read from serial
     recieved = ser.read_all()
     #Did we get anything from the Arduino?
@@ -76,6 +80,7 @@ def update():
 
     if len(recieved) != BYTES_EXPECTED_TO_RECIEVE:
         #Incomplete/insufficient data recieved!
+        everythingFine = False
 
     #Get status report
     # A - everything ok
@@ -152,29 +157,31 @@ def updateGUI():
     textPrint.reset()
 
     # Get count of joysticks
-    textPrint.print(screen, "CONTROL PANEL", GUI.BLUE)
+    textPrint.printLine(screen, "CONTROL PANEL", GUI.BLUE)
 
-    textPrint.print(screen, "Speed")
+    textPrint.printLine(screen, "Speed")
     textPrint.indent()
     textPrint.drawProgressBar(screen, (currentSpeedSetting / 100))
     textPrint.unindent()
 
-    textPrint.print(screen, "Left-Right")
+    textPrint.printLine(screen, "Left-Right")
     textPrint.indent()
-    textPrint.drawProgressBar(screen, (currentLeftRightSetting / 180 + 0.50))
+    textPrint.drawPositiveNegativeProgressBar(screen, (currentLeftRightSetting / 90))
     textPrint.unindent()
 
-    textPrint.print(screen, "Up-Down")
+    textPrint.printLine(screen, "Up-Down")
     textPrint.indent()
-    textPrint.drawProgressBar(screen, (currentUpDownSetting / 180 + 0.50))
+    textPrint.drawPositiveNegativeProgressBar(screen, (currentUpDownSetting / 90))
     textPrint.unindent()
 
-    textPrint.print(screen, "Current speed setting: " + str(currentSpeedSetting))
-    textPrint.print(screen, "Current left right setting: "+ str(currentLeftRightSetting))
-    textPrint.print(screen, "Current up down setting: " + str(currentUpDownSetting))
+    textPrint.printLine(screen, "Current speed setting: " + str(currentSpeedSetting))
+    textPrint.printLine(screen, "Current left right setting: "+ str(currentLeftRightSetting))
+    textPrint.printLine(screen, "Current up down setting: " + str(currentUpDownSetting))
 
     textPrint.printEmptyLine(screen)
-    textPrint.print(screen, "MAGNUSFLIEGER STATUS", GUI.BLUE)
+    textPrint.printLine(screen, "MAGNUSFLIEGER STATUS", GUI.BLUE)
+
+    textPrint.printLine(screen, "Recieved via serial: " + str(recieved))
     
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
     # Go ahead and update the screen with what we've drawn.
