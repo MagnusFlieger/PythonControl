@@ -73,30 +73,32 @@ def update():
 
     #Read from serial
     recieved = ser.read_all()
-    #Did we get anything from the Arduino?
-    if not recieved:
-        #Nothing recieved!
-        everythingFine = False
-
     if len(recieved) != BYTES_EXPECTED_TO_RECIEVE:
         #Incomplete/insufficient data recieved!
         everythingFine = False
+        if not recieved:
+            #Nothing recieved!
+            errorMessage = "Nothing recieved via serial!"
+        else:
+            errorMessage = "Wrong amount of data recieved!"
+    
+    else:
+        pass
+        #Get status report
+        # A - everything ok
+        # B - battery low
+        # C - other battery error
+        # D - motor error
+        # E - servo error
+        # F - sensor error
+        # G - other hardware error
+        # H - internal Arduino error
+        # I - other error
+        #statusReport = recieved[0]
 
-    #Get status report
-    # A - everything ok
-    # B - battery low
-    # C - other battery error
-    # D - motor error
-    # E - servo error
-    # F - sensor error
-    # G - other hardware error
-    # H - internal Arduino error
-    # I - other error
-    #statusReport = recieved[0]
+        #Get current servo positions
 
-    #Get current servo positions
-
-    #Get other data
+        #Get other data
         
     #Get values from joystick
     deltaSpeed = 0
@@ -182,6 +184,9 @@ def updateGUI():
     textPrint.printLine(screen, "MAGNUSFLIEGER STATUS", GUI.BLUE)
 
     textPrint.printLine(screen, "Recieved via serial: " + str(recieved))
+
+    textPrint.printEmptyLine(screen)
+    textPrint.printLine(screen, "DIAGNOSTICS", GUI.BLUE)
     
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
     # Go ahead and update the screen with what we've drawn.
