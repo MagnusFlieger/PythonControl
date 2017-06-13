@@ -27,7 +27,6 @@ BYTES_EXPECTED_TO_RECIEVE = 5
 
 #Variables
 ports = list(serial.tools.list_ports.comports())
-serialport = ""
 everythingFine = True
 errorMessage = ""
 recieved = None
@@ -213,7 +212,7 @@ def updateGUI():
 
     textPrint.printEmptyLine(screen)
     textPrint.printLine(screen, "DIAGNOSTICS", GUI.BLUE)
-    
+
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
     # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
