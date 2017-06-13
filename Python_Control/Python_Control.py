@@ -42,6 +42,9 @@ currentLeftRightPosition = 0
 currentUpDownPosition = 0
 
 def getCOM():
+    """
+    Function that returns the COM port of the XBee (if available)
+    """
     #Is list ports empty?
     if not ports:
         print("No Serial Ports found! Exiting now")
@@ -56,21 +59,30 @@ def getCOM():
         print(port)
     return input("Enter Xbee Serialport: ")
 
-#Function that runs forever after all is set up
 def loop():
+    """
+    Function that runs forever after all is set up
+    """
+    
+    global done
+    
     while not done:
-        #TODO: clean exit, break
         update()
         updateGUI()
         sleep(0.1)
 
 
 def update():
+    """
+    Function that controls one iteration of the loop() function
+    """
     global currentSpeedSetting
     global currentLeftRightSetting
     global currentUpDownSetting
 
     global recieved
+    global everythingFine
+    global errorMessage
 
     #Read from serial
     recieved = ser.read_all()
@@ -155,6 +167,12 @@ def update():
 
 
 def updateGUI():
+    """
+    Function that updates the GUI display (pygame)
+    """
+
+    global done
+    
     # EVENT PROCESSING STEP
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
@@ -245,7 +263,12 @@ textPrint = GUI.TextPrint()
 if __name__ == "__main__":
     loop()
 
+    #CODE AFTER THIS LINE IS CLEAN UP AFTER EXIT
+
+    #Close serial
+    ser.close()
+
     # Close the window and quit.
     # If you forget this line, the program will 'hang'
     # on exit if running from IDLE.
-    pygame.quit ()
+    pygame.quit()
