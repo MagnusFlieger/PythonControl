@@ -9,20 +9,19 @@ import serial.tools.list_ports
 import GUI
 
 #CONSTANTS
-#TODO: Explain constants/variables
-SPEED_MIN = 0
-SPEED_MAX = 100
-SPEED_FACTOR = 5
-SERVO_MIN = 0
-SERVO_MAX = 180
-LR_MIN = -90
-LR_MAX = 90
-LR_HALF = 0
-LR_FACTOR = 5
-UD_MIN = -90
-UD_MAX = 90
-UD_HALF = 0
-UD_FACTOR = 5
+SPEED_MIN = 0       #Minimum speed value
+SPEED_MAX = 100     #Maximum speed value
+SPEED_FACTOR = 5    #Factor by which the joystick value is multiplied
+SERVO_MIN = 0       #Minimum value to send to a servo
+SERVO_MAX = 180     #Maxium value to send to a servo
+LR_MIN = -90        #Minimum left-right value
+LR_MAX = 90         #Maximum left-right value
+LR_HALF = 0         #Middle of left-right
+LR_FACTOR = 5       #Factor by which the joystick value is multiplied
+UD_MIN = -90        #Minimum up-down value
+UD_MAX = 90         #Maximum up-down value
+UD_HALF = 0         #Middle of up-down
+UD_FACTOR = 5       #Factor by which the joystick value is multiplied
 
 BYTES_EXPECTED_TO_RECIEVE = 1
 
