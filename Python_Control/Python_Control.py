@@ -163,7 +163,7 @@ def update():
     outLeftRightSetting = currentLeftRightSetting + 90
     outUpDownSetting = currentUpDownSetting + 90
 
-    ser.write(bytes([outSpeedSetting]))
+    ser.write(bytes([outSpeedSetting, outLeftRightSetting, outUpDownSetting, 0, 0]))
 
 
 def updateGUI():
