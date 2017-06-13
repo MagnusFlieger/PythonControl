@@ -9,6 +9,7 @@ import serial.tools.list_ports
 import GUI
 
 #CONSTANTS
+#TODO: Explain constants/variables
 SPEED_MIN = 0
 SPEED_MAX = 100
 SPEED_FACTOR = 5
@@ -56,13 +57,10 @@ def getCOM():
         print(port)
     return input("Enter Xbee Serialport: ")
 
-#Send the position out to the servo
-def move(angle):
-    ser.write(angle)
-
 #Function that runs forever after all is set up
 def loop():
     while not done:
+        #TODO: clean exit, break
         update()
         updateGUI()
         sleep(0.1)
@@ -112,9 +110,9 @@ def update():
         #Get other data
         
     #Get values from joystick
-    deltaSpeed = 0
-    deltaLeftRight = 0
-    deltaUpDown = 0
+    deltaSpeed = 0 #Change in speed
+    deltaLeftRight = 0 #Change in Left-Right
+    deltaUpDown = 0 #Change in Up-Down
 
     pygame.event.pump()
 
