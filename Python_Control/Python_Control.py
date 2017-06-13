@@ -23,7 +23,7 @@ UD_MAX = 90         #Maximum up-down value
 UD_HALF = 0         #Middle of up-down
 UD_FACTOR = 5       #Factor by which the joystick value is multiplied
 
-BYTES_EXPECTED_TO_RECIEVE = 1
+BYTES_EXPECTED_TO_RECIEVE = 5
 
 #Variables
 ports = list(serial.tools.list_ports.comports())
@@ -159,7 +159,7 @@ def update():
 
     #Write to serial
     #Calibrate values so they fit into the 0-180 range
-    outSpeedSetting = currentSpeedSetting
+    outSpeedSetting = int(float(currentSpeedSetting) * 1.8)
     outLeftRightSetting = currentLeftRightSetting + 90
     outUpDownSetting = currentUpDownSetting + 90
 
@@ -184,7 +184,7 @@ def updateGUI():
     screen.fill(GUI.WHITE)
     textPrint.reset()
 
-    # Get count of joysticks
+    # Now print info
     textPrint.printLine(screen, "CONTROL PANEL", GUI.BLUE)
 
     textPrint.printLine(screen, "Speed")
