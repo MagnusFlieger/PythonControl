@@ -44,9 +44,9 @@ currentUpDownSetting = UD_HALF
 currentFrontSetting = FRONT_MIN
 currentBackSetting = BACK_MIN
 
-currentSpeedPosition = 0
-currentLeftRightPosition = 0
-currentUpDownPosition = 0
+currentSpeedPosition = 0        #The current speed setting reported by the Arduino
+currentLeftRightPosition = 0    #The current left-right setting reported by the Arduino
+currentUpDownPosition = 0       #The current up-down setting reported by the Arduino
 
 def getCOM():
     """
@@ -56,6 +56,7 @@ def getCOM():
     if not ports:
         print("No Serial Ports found! Exiting now")
         exit()
+
     #If there is only one port available, automatically use that one
     if len(ports) == 1:
         return ports[0].device
@@ -70,9 +71,9 @@ def loop():
     """
     Function that runs forever after all is set up
     """
-    
+
     global done
-    
+
     while not done:
         update()
         updateGUI()
