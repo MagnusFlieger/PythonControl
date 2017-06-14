@@ -22,6 +22,12 @@ UD_MIN = -90        #Minimum up-down value
 UD_MAX = 90         #Maximum up-down value
 UD_HALF = 0         #Middle of up-down
 UD_FACTOR = 5       #Factor by which the joystick value is multiplied
+FRONT_MIN = 0       #Minimum rotating cylinder (front) value
+FRONT_MAX = 100     #Maximum rotating cylinder (front) value
+FRONT_FACTOR = 5    #Factor by which the joystick value is multiplied
+BACK_MIN = 0        #Minimum rotating cylinder (back) value
+BACK_MAX = 100      #Maximum rotating cylinder (back) value
+BACK_FACTOR = 5     #Factor by which the joystick value is multiplied
 
 BYTES_EXPECTED_TO_RECIEVE = 5
 
@@ -133,11 +139,17 @@ def update():
 
     #Get the values from the buttons
     #TODO: BUTTONS
+
+    #Get the values from the hat
+    hat = j.get_hat(0)
+    deltaFront = hat[0]
+    deltaBack = hat[1]
     
     #Figure out delta values
     deltaSpeed = int(deltaSpeed * SPEED_FACTOR)
     deltaLeftRight = int(deltaLeftRight * LR_FACTOR)
     deltaUpDown = int(deltaUpDown * UD_FACTOR)
+
 
     #Calculate new current settings
     currentSpeedSetting = currentSpeedSetting + deltaSpeed
