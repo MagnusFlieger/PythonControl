@@ -29,7 +29,7 @@ BACK_MIN = 0        #Minimum rotating cylinder (back) value
 BACK_MAX = 100      #Maximum rotating cylinder (back) value
 BACK_FACTOR = 5     #Factor by which the joystick value is multiplied
 
-BYTES_EXPECTED_TO_RECIEVE = 5
+BYTES_EXPECTED_TO_RECIEVE = 5   #Number of bytes we should get from the Arduino via Xbee
 
 #Variables
 ports = list(serial.tools.list_ports.comports())
@@ -41,6 +41,8 @@ recieved = None
 currentSpeedSetting = SPEED_MIN
 currentLeftRightSetting = LR_HALF
 currentUpDownSetting = UD_HALF
+currentFrontSetting = FRONT_MIN
+currentBackSetting = BACK_MIN
 
 currentSpeedPosition = 0
 currentLeftRightPosition = 0
@@ -84,6 +86,8 @@ def update():
     global currentSpeedSetting
     global currentLeftRightSetting
     global currentUpDownSetting
+    global currentFrontSetting
+    global currentBackSetting
 
     global recieved
     global everythingFine
@@ -133,17 +137,17 @@ def update():
     pygame.event.pump()
 
     #Get the values from the axes
-    deltaSpeed = j.get_axis(2)
-    deltaLeftRight = j.get_axis(4)
-    deltaUpDown = j.get_axis(3)
+    deltaSpeed = j.get_axis(2)      #LT and RT
+    deltaLeftRight = j.get_axis(4)  #x-axis of right axis
+    deltaUpDown = j.get_axis(3)     #y-axis of right axis
 
     #Get the values from the buttons
     #TODO: BUTTONS
 
     #Get the values from the hat
     hat = j.get_hat(0)
-    deltaFront = hat[0]
-    deltaBack = hat[1]
+    deltaFront = hat[0]             #x-axis of the hat
+    deltaBack = hat[1]              #y-axis of the hat
     
     #Figure out delta values
     deltaSpeed = int(deltaSpeed * SPEED_FACTOR)
