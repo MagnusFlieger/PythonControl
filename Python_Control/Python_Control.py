@@ -1,3 +1,6 @@
+"""
+This script will be run on the main control computer. 
+"""
 #Imports
 import sys
 from time import sleep
@@ -32,10 +35,10 @@ BACK_FACTOR = 5     #Factor by which the joystick value is multiplied
 BYTES_EXPECTED_TO_RECIEVE = 5   #Number of bytes we should get from the Arduino via Xbee
 
 #Variables
-ports = list(serial.tools.list_ports.comports())
-everythingFine = True
-errorMessage = ""
-recieved = None
+ports = list(serial.tools.list_ports.comports())    #List of serial ports (loaded automatically)
+everythingFine = True                               #Are there no errors present?
+errorMessage = ""                                   #Detailed error message
+recieved = None                                     #Bytes recieved via XBee
 
 #Speed setting: SPEED_MIN - SPEED_MAX
 currentSpeedSetting = SPEED_MIN
