@@ -1,5 +1,5 @@
 """
-This script will be run on the main control computer. 
+This script will be run on the main control computer.
 """
 #Imports
 import sys
@@ -146,7 +146,14 @@ def update():
     deltaUpDown = j.get_axis(3)     #y-axis of right axis
 
     #Get the values from the buttons
-    #TODO: BUTTONS
+    startButton = bool(j.get_button(7)) #Start button: Used for initializing everything
+    backButton = bool(j.get_button(6))  #Back button: Used for toggling stabilizing
+    XButton = bool(j.get_button(2))     #X: Used for
+    YButton = bool(j.get_button(3))     #Y: Used for
+    AButton = bool(j.get_button(0))     #A: Used for
+    BButton = bool(j.get_button(1))     #B: Used for
+    LBButton = bool(j.get_button(4))    #LB: Used for
+    RBButton = bool(j.get_button(5))    #RB: Used for
 
     #Get the values from the hat
     hat = j.get_hat(0)
@@ -157,7 +164,8 @@ def update():
     deltaSpeed = int(deltaSpeed * SPEED_FACTOR)
     deltaLeftRight = int(deltaLeftRight * LR_FACTOR)
     deltaUpDown = int(deltaUpDown * UD_FACTOR)
-
+    deltaFront = int(deltaFront * FRONT_FACTOR)
+    deltaBack = int(deltaBack * BACK_FACTOR)
 
     #Calculate new current settings
     currentSpeedSetting = currentSpeedSetting + deltaSpeed
@@ -175,6 +183,16 @@ def update():
         currentUpDownSetting = UD_MIN
     if currentUpDownSetting > UD_MAX:
         currentUpDownSetting = UD_MAX
+    currentFrontSetting = currentFrontSetting + deltaFront
+    if currentFrontSetting < FRONT_MIN:
+        currentFrontSetting = FRONT_MIN
+    if currentFrontSetting > FRONT_MAX:
+        currentFrontSetting = FRONT_MAX
+    currentBackSetting = currentBackSetting + deltaBack
+    if currentBackSetting < BACK_MIN:
+        currentBackSetting = BACK_MIN
+    if currentBackSetting > BACK_MAX:
+        currentBackSetting = BACK_MAX
 
     #Write to serial
     #Calibrate values so they fit into the 0-180 range
@@ -224,6 +242,8 @@ def updateGUI():
     textPrint.printLine(screen, "Current speed setting: " + str(currentSpeedSetting))
     textPrint.printLine(screen, "Current left right setting: "+ str(currentLeftRightSetting))
     textPrint.printLine(screen, "Current up down setting: " + str(currentUpDownSetting))
+    textPrint.printLine(screen, "Current front setting: " + str(currentFrontSetting))
+    textPrint.printLine(screen, "Current back setting: " + str(currentBackSetting))
 
     textPrint.printEmptyLine(screen)
     textPrint.printLine(screen, "MAGNUSFLIEGER STATUS", GUI.BLUE)
@@ -286,8 +306,11 @@ if __name__ == "__main__":
 
     #Close serial
     ser.close()
+    print("Serial closed")
 
     # Close the window and quit.
     # If you forget this line, the program will 'hang'
     # on exit if running from IDLE.
     pygame.quit()
+    print("Pygame terminated")
+    print("Goodbye!")
