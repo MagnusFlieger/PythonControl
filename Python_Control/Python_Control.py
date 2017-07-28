@@ -4,6 +4,7 @@ This script will be run on the main control computer.
 #Imports
 import sys
 from time import sleep
+import logging
 
 import pygame
 import serial
@@ -57,7 +58,7 @@ def getCOM():
     """
     #Is list ports empty?
     if not ports:
-        print("No Serial Ports found! Exiting now")
+        logging.critical("No Serial Ports found! Exiting now")
         exit()
 
     #If there is only one port available, automatically use that one
@@ -260,13 +261,22 @@ def updateGUI():
     # Limit to 20 frames per second
     clock.tick(20)
 
+# PROGRAM STARTS HERE
+
+# Set up logging
+logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', 
+        level = logging.DEBUG, 
+        filename='PythonControl.log')
+
+logging.info("PythonControl started")
+
 #Setting up joystick
 pygame.init()
 
 try:
     j = pygame.joystick.Joystick(0)
 except:
-    print("Error initializing joystick. Exiting now")
+    logging.critical("Error initializing joystick. Exiting now")
     exit()
 
 j.init()
@@ -276,10 +286,10 @@ print('Initialized Joystick : %s' % j.get_name())
 
 try:
     serialport = getCOM()
-    print("Establishing connection to: %s" % serialport)
+    logging.info("Establishing connection to: %s" % serialport)
     ser = serial.Serial(serialport, 9600, timeout=1)
 except:
-    print("Error establishing connection to serial port. Exiting now")
+    logging.critical("Error establishing connection to serial port. Exiting now")
     exit()
 
 #Set up GUI
@@ -306,11 +316,11 @@ if __name__ == "__main__":
 
     #Close serial
     ser.close()
-    print("Serial closed")
+    logging.info("Serial closed")
 
     # Close the window and quit.
     # If you forget this line, the program will 'hang'
     # on exit if running from IDLE.
     pygame.quit()
-    print("Pygame terminated")
+    logging.info("Pygame terminated")
     print("Goodbye!")
