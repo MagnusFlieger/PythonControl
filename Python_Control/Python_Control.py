@@ -1,5 +1,5 @@
 """
-This script will be run on the main control computer.
+This script will run on the main control computer.
 """
 #Imports
 import sys
