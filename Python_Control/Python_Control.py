@@ -37,6 +37,11 @@ BYTES_EXPECTED_TO_RECIEVE = 5   #Number of bytes we should get from the Arduino 
 
 #Variables
 ports = list(serial.tools.list_ports.comports())    #List of serial ports (loaded automatically)
+ser = None                                          #The serial port
+j = None                                            #The joystick
+screen = None                                       #The window for display
+textPrint = None                                    #The method for drawing text
+clock = None                                        #The method for controlling the display
 everythingFine = True                               #Are there no errors present?
 errorMessage = ""                                   #Detailed error message
 recieved = None                                     #Bytes recieved via XBee
@@ -214,7 +219,7 @@ def updateGUI():
     # EVENT PROCESSING STEP
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
-            done=True # Flag that we are done so we exit this loop
+            done = True # Flag that we are done so we exit this loop
         
     # DRAWING STEP
     # First, clear the screen to white. Don't put other drawing commands
@@ -263,6 +268,12 @@ def updateGUI():
 
 def init():
 
+    global done
+    global ser
+    global j
+    global screen
+    global textPrint
+    global clock
     # PROGRAM STARTS HERE
 
     # Set up logging
@@ -288,7 +299,7 @@ def init():
 
     try:
         serialport = getCOM()
-        logging.info("Establishing connection to: %s" % serialport)
+        logging.info("Establishing connection to: " + str(serialport))
         ser = serial.Serial(serialport, 9600, timeout=1)
     except:
         logging.critical("Error establishing connection to serial port. Exiting now")
@@ -326,4 +337,3 @@ if __name__ == "__main__":
     # on exit if running from IDLE.
     pygame.quit()
     logging.info("Pygame terminated")
-    print("Goodbye!")
