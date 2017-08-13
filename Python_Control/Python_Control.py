@@ -219,6 +219,7 @@ def updateGUI():
     # EVENT PROCESSING STEP
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
+            logging.info("User induced a quit via the close button")
             done = True # Flag that we are done so we exit this loop
         
     # DRAWING STEP
