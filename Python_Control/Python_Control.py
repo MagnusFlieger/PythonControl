@@ -261,64 +261,67 @@ def updateGUI():
     # Limit to 20 frames per second
     clock.tick(20)
 
-# PROGRAM STARTS HERE
+def init():
 
-# Set up logging
-logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', 
-        level = logging.DEBUG, 
-        filename='PythonControl.log')
+    # PROGRAM STARTS HERE
 
-logging.info("PythonControl started")
+    # Set up logging
+    logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s',
+                        level=logging.DEBUG,
+                        filename='PythonControl.log')
 
-#Setting up joystick
-pygame.init()
+    logging.info("PythonControl started")
 
-try:
-    j = pygame.joystick.Joystick(0)
-except:
-    logging.critical("Error initializing joystick. Exiting now")
-    exit()
+    #Setting up joystick
+    pygame.init()
 
-j.init()
-print('Initialized Joystick : %s' % j.get_name())
+    try:
+        j = pygame.joystick.Joystick(0)
+    except:
+        logging.critical("Error initializing joystick. Exiting now")
+        exit()
 
-#Setting up XBee Serial
+    j.init()
+    print('Initialized Joystick : %s' % j.get_name())
 
-try:
-    serialport = getCOM()
-    logging.info("Establishing connection to: %s" % serialport)
-    ser = serial.Serial(serialport, 9600, timeout=1)
-except:
-    logging.critical("Error establishing connection to serial port. Exiting now")
-    exit()
+    #Setting up XBee Serial
 
-#Set up GUI
-# Set the width and height of the screen [width,height]
-size = [500, 500]
-screen = pygame.display.set_mode(size)
+    try:
+        serialport = getCOM()
+        logging.info("Establishing connection to: %s" % serialport)
+        ser = serial.Serial(serialport, 9600, timeout=1)
+    except:
+        logging.critical("Error establishing connection to serial port. Exiting now")
+        exit()
 
-pygame.display.set_caption("Control")
+    #Set up GUI
+    # Set the width and height of the screen [width,height]
+    size = [500, 500]
+    screen = pygame.display.set_mode(size)
 
-#Loop until the user clicks the close button.
-done = False
+    pygame.display.set_caption("Control")
 
-# Used to manage how fast the screen updates
-clock = pygame.time.Clock()
+    #Loop until the user clicks the close button.
+    done = False
 
-# Get ready to print
-textPrint = GUI.TextPrint()
+    # Used to manage how fast the screen updates
+    clock = pygame.time.Clock()
 
-#Setting up finished, now loop
+    # Get ready to print
+    textPrint = GUI.TextPrint()
+
 if __name__ == "__main__":
+    init()
+    
     loop()
 
     #CODE AFTER THIS LINE IS CLEAN UP AFTER EXIT
-
     #Close serial
+
     ser.close()
     logging.info("Serial closed")
-
     # Close the window and quit.
+
     # If you forget this line, the program will 'hang'
     # on exit if running from IDLE.
     pygame.quit()
