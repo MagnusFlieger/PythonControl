@@ -16,6 +16,7 @@ import serial.tools.list_ports
 
 import GUI
 import Settings
+import StatusReport
 
 #CONSTANTS
 SPEED_MIN = 0       #Minimum speed value
@@ -47,8 +48,7 @@ j = None                                            #The joystick
 screen = None                                       #The window for display
 textPrint = None                                    #The method for drawing text
 clock = None                                        #The method for controlling the display
-everythingFine = True                               #Are there no errors present?
-errorMessage = ""                                   #Detailed error message
+status = StatusReport.StatusReport()                #The status of the MagnusFlieger
 recieved = None                                     #Bytes recieved via XBee
 
 # The current settings we have on this controller
@@ -100,8 +100,8 @@ def update():
     global lastSettings
 
     global recieved
-    global everythingFine
-    global errorMessage
+    
+    global status
 
     #Read from serial
     recieved = ser.read_all()
