@@ -42,7 +42,6 @@ BACK_FACTOR = 5     #Factor by which the joystick value is multiplied
 BYTES_EXPECTED_TO_RECIEVE = 5   #Number of bytes we should get from the Arduino via Xbee
 
 #Variables
-ports = list(serial.tools.list_ports.comports())    #List of serial ports (loaded automatically)
 ser = None                                          #The serial port
 j = None                                            #The joystick
 screen = None                                       #The window for display
@@ -64,6 +63,8 @@ def getCOM():
     """
     Function that returns the COM port of the XBee (if available)
     """
+    ports = list(serial.tools.list_ports.comports())
+
     #Is list ports empty?
     if not ports:
         logging.critical("No Serial Ports found! Exiting now")
@@ -100,7 +101,7 @@ def update():
     global lastSettings
 
     global recieved
-    
+
     global status
 
     #Read from serial
