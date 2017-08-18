@@ -24,11 +24,27 @@ class Settings:
                       self.back])
 
     def copy(self):
+        """
+        Creates an identical copy of these settings
+        """
         return Settings(self.speed, self.leftRight, self.upDown,
                         self.front, self.back)
 
     def isSame(self, comparison):
+        """
+        Checks if these settings exactly match the comparison
+        """
+        if not isinstance(comparison, Settings):
+            return False
         if self.speed != comparison.speed:
+            return False
+        if self.leftRight != comparison.leftRight:
+            return False
+        if self.upDown != comparison.upDown:
+            return False
+        if self.front != comparison.front:
+            return False
+        if self.back != comparison.back:
             return False
         return True
 
