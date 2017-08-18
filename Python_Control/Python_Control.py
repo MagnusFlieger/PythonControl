@@ -192,7 +192,7 @@ def update():
                                     currentSettings.upDown + 90,
                                     0,
                                     0)
-    if not Settings.Settings.GetDeltaSettings(currentSettings, lastSettings) == Settings.Settings.EmptySettings():
+    if not currentSettings == lastSettings:
         ser.write(bytes(outSettings))
 
     #ITERATION OFFICIALLY ENDS HERE
