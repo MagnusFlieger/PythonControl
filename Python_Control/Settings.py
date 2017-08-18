@@ -5,7 +5,7 @@ class Settings:
     """
     Stores all settings which are necessary for the Arudino
     """
-    def __init__(self, speedSetting, leftRightSetting, upDownSetting, 
+    def __init__(self, speedSetting, leftRightSetting, upDownSetting,
                  frontSetting, backSetting):
         self.speed = speedSetting
         self.leftRight = leftRightSetting
@@ -23,7 +23,7 @@ class Settings:
         return True
 
     @staticmethod
-    def getDeltaSettings(original, comparison):
+    def GetDeltaSettings(original, comparison):
         return Settings(comparison.speed - original.speed,
                         comparison.leftRight - original.leftRight,
                         comparison.upDown - original.upDown,
@@ -31,5 +31,12 @@ class Settings:
                         comparison.back - original.back)
 
     @staticmethod
-    def emptySettings():
+    def EmptySettings():
         return Settings(0, 0, 0, 0, 0)
+
+    @staticmethod
+    def KeepInBoundary(val, upperBound, underBound=0):
+        if val > upperBound:
+            val = upperBound
+        if val < underBound:
+            val = underBound

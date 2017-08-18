@@ -193,10 +193,7 @@ def update():
 
     #Calculate new current settings
     currentSettings.speed = currentSettings.speed + deltaSpeed
-    if currentSpeedSetting < SPEED_MIN:
-        currentSpeedSetting = SPEED_MIN
-    if currentSpeedSetting > SPEED_MAX:
-        currentSpeedSetting = SPEED_MAX
+    Settings.Settings.KeepInBoundary(currentSettings.speed, SPEED_MAX, SPEED_MIN)
     currentLeftRightSetting = currentLeftRightSetting + deltaLeftRight
     if currentLeftRightSetting < LR_MIN:
         currentLeftRightSetting = LR_MIN
