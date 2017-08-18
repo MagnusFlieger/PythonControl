@@ -1,8 +1,35 @@
+"""
+This module provides the class Settings
+"""
 class Settings:
+    """
+    Stores all settings which are necessary for the Arudino
+    """
     def __init__(self, speedSetting, leftRightSetting, upDownSetting, 
-    frontSetting, backSetting):
-        self.speedSetting = speedSetting
-        self.leftRightSetting = leftRightSetting
-        self.upDownSetting = upDownSetting
-        self.frontSetting = frontSetting
-        self.backSetting = backSetting
+                 frontSetting, backSetting):
+        self.speed = speedSetting
+        self.leftRight = leftRightSetting
+        self.upDown = upDownSetting
+        self.front = frontSetting
+        self.back = backSetting
+
+    def copy(self):
+        return Settings(self.speed, self.leftRight, self.upDown,
+                        self.front, self.back)
+
+    def isSame(self, comparison):
+        if self.speed != comparison.speed:
+            return False
+        return True
+
+    @staticmethod
+    def getDeltaSettings(original, comparison):
+        return Settings(comparison.speed - original.speed,
+                        comparison.leftRight - original.leftRight,
+                        comparison.upDown - original.upDown,
+                        comparison.front - original.front,
+                        comparison.back - original.back)
+
+    @staticmethod
+    def emptySettings():
+        return Settings(0, 0, 0, 0, 0)
