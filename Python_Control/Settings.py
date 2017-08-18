@@ -13,6 +13,16 @@ class Settings:
         self.front = frontSetting
         self.back = backSetting
 
+    def __str__(self):
+        return str(self.speed) + str(self.leftRight) + str(self.upDown) + str(self.front) + str(self.back)
+
+    def __bytes__(self):
+        return bytes([self.speed,
+                      self.leftRight,
+                      self.upDown,
+                      self.front,
+                      self.back])
+
     def copy(self):
         return Settings(self.speed, self.leftRight, self.upDown,
                         self.front, self.back)

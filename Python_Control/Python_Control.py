@@ -194,42 +194,31 @@ def update():
     #Calculate new current settings
     currentSettings.speed = currentSettings.speed + deltaSpeed
     Settings.Settings.KeepInBoundary(currentSettings.speed, SPEED_MAX, SPEED_MIN)
-    currentLeftRightSetting = currentLeftRightSetting + deltaLeftRight
-    if currentLeftRightSetting < LR_MIN:
-        currentLeftRightSetting = LR_MIN
-    if currentLeftRightSetting > LR_MAX:
-        currentLeftRightSetting = LR_MAX
-    currentUpDownSetting = currentUpDownSetting + deltaUpDown
-    if currentUpDownSetting < UD_MIN:
-        currentUpDownSetting = UD_MIN
-    if currentUpDownSetting > UD_MAX:
-        currentUpDownSetting = UD_MAX
-    currentFrontSetting = currentFrontSetting + deltaFront
-    if currentFrontSetting < FRONT_MIN:
-        currentFrontSetting = FRONT_MIN
-    if currentFrontSetting > FRONT_MAX:
-        currentFrontSetting = FRONT_MAX
-    currentBackSetting = currentBackSetting + deltaBack
-    if currentBackSetting < BACK_MIN:
-        currentBackSetting = BACK_MIN
-    if currentBackSetting > BACK_MAX:
-        currentBackSetting = BACK_MAX
+
+    currentSettings.leftRight = currentSettings.leftRight + deltaLeftRight
+    Settings.Settings.KeepInBoundary(currentSettings.leftRight, LR_MIN, LR_MAX)
+    
+    currentSettings.upDown = currentSettings.upDown + deltaUpDown
+    Settings.Settings.KeepInBoundary(currentSettings.upDown, UD_MAX, UD_MIN)
+    
+    currentSettings.front = currentSettings.front + deltaFront
+    Settings.Settings.KeepInBoundary(currentSettings.front, FRONT_MAX, FRONT_MIN)
+    
+    currentSettings.back = currentSettings.back + deltaBack
+    Settings.Settings.KeepInBoundary(currentSettings.back, BACK_MAX, BACK_MIN)
 
     #Write to serial
     #Calibrate values so they fit into the 0-180 range
-    outSpeedSetting = int(float(currentSpeedSetting) * 1.8)
-    outLeftRightSetting = currentLeftRightSetting + 90
-    outUpDownSetting = currentUpDownSetting + 90
-
-    ser.write(bytes([outSpeedSetting, outLeftRightSetting, outUpDownSetting, 0, 0]))
+    outSettings = Settings.Settings(int(float(currentSettings.speed) * 1.8),
+                                    currentSettings.leftRight + 90,
+                                    currentSettings.upDown + 90,
+                                    0,
+                                    0)
+    ser.write(bytes([outSettings]))
 
     #ITERATION OFFICIALLY ENDS HERE
     #Write to the settings of the previous iteration
-    lastSpeedSetting = currentSpeedSetting
-    lastLeftRightSetting = currentLeftRightSetting
-    lastUpDownSetting = currentUpDownSetting
-    lastFrontSetting = currentFrontSetting
-    lastBackSetting = currentBackSetting
+    lastSettings = currentSettings
 
 def updateGUI():
     """
