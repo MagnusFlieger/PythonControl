@@ -15,6 +15,7 @@ import serial
 import serial.tools.list_ports
 
 import GUI
+import Settings
 
 #CONSTANTS
 SPEED_MIN = 0       #Minimum speed value
@@ -51,11 +52,17 @@ errorMessage = ""                                   #Detailed error message
 recieved = None                                     #Bytes recieved via XBee
 
 #Speed setting: SPEED_MIN - SPEED_MAX
-currentSpeedSetting = SPEED_MIN
-currentLeftRightSetting = LR_HALF
-currentUpDownSetting = UD_HALF
-currentFrontSetting = FRONT_MIN
-currentBackSetting = BACK_MIN
+currentSpeedSetting = SPEED_MIN                     #The current, up-to-date speed setting here
+currentLeftRightSetting = LR_HALF                   #The current, up-to-date left-right setting here
+currentUpDownSetting = UD_HALF                      #The current, up-to-date up-down setting here
+currentFrontSetting = FRONT_MIN                     #The current, up-to-date front setting here
+currentBackSetting = BACK_MIN                       #The current, up-to-date back setting here
+
+lastSpeedSetting = currentSpeedSetting              #The setting of the previous iteration
+lastLeftRightSetting = currentLeftRightSetting      #The setting of the previous iteration
+lastUpDownSetting = currentUpDownSetting            #The setting of the previous iteration
+lastFrontSetting = currentFrontSetting              #The setting of the previous iteration
+lastBackSetting = currentBackSetting                #The setting of the previous iteration
 
 currentSpeedPosition = 0        #The current speed setting reported by the Arduino
 currentLeftRightPosition = 0    #The current left-right setting reported by the Arduino
@@ -102,6 +109,12 @@ def update():
     global currentUpDownSetting
     global currentFrontSetting
     global currentBackSetting
+
+    global lastSpeedSetting
+    global lastLeftRightSetting
+    global lastUpDownSetting
+    global lastFrontSetting
+    global lastBackSetting
 
     global recieved
     global everythingFine
@@ -212,6 +225,13 @@ def update():
 
     ser.write(bytes([outSpeedSetting, outLeftRightSetting, outUpDownSetting, 0, 0]))
 
+    #ITERATION OFFICIALLY ENDS HERE
+    #Write to the settings of the previous iteration
+    lastSpeedSetting = currentSpeedSetting
+    lastLeftRightSetting = currentLeftRightSetting
+    lastUpDownSetting = currentUpDownSetting
+    lastFrontSetting = currentFrontSetting
+    lastBackSetting = currentBackSetting
 
 def updateGUI():
     """
@@ -330,7 +350,7 @@ def init():
 
 if __name__ == "__main__":
     init()
-    
+
     loop()
 
     #CODE AFTER THIS LINE IS CLEAN UP AFTER EXIT
