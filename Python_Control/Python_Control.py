@@ -21,11 +21,11 @@ SERVO_MAX = 180     #Maxium value to send to a servo
 LR_MIN = -90        #Minimum left-right value
 LR_MAX = 90         #Maximum left-right value
 LR_HALF = 0         #Middle of left-right
-LR_FACTOR = 5       #Factor by which the joystick value is multiplied
+LR_FACTOR = 6       #Factor by which the joystick value is multiplied
 UD_MIN = -90        #Minimum up-down value
 UD_MAX = 90         #Maximum up-down value
 UD_HALF = 0         #Middle of up-down
-UD_FACTOR = 5       #Factor by which the joystick value is multiplied
+UD_FACTOR = 7       #Factor by which the joystick value is multiplied
 FRONT_MIN = 0       #Minimum rotating cylinder (front) value
 FRONT_MAX = 100     #Maximum rotating cylinder (front) value
 FRONT_FACTOR = 5    #Factor by which the joystick value is multiplied
@@ -294,7 +294,7 @@ def init():
         exit()
 
     j.init()
-    print('Initialized Joystick : %s' % j.get_name())
+    logging.info('Initialized Joystick : %s' % j.get_name())
 
     #Setting up XBee Serial
 
