@@ -54,7 +54,7 @@ recieved = None                                     #Bytes recieved via XBee
 currentSettings = Settings.Settings(SPEED_MIN, LR_HALF, UD_HALF, FRONT_MIN, BACK_MIN)
 
 # The settings of the previous iteration
-lastSettings = currentSettings.copy()
+lastSettings = Settings.Settings.EmptySettings()
 
 # The settings reported by the MagnusFlieger
 arduinoSettings = currentSettings.copy()
@@ -192,11 +192,12 @@ def update():
                                     currentSettings.upDown + 90,
                                     0,
                                     0)
-    ser.write(bytes(outSettings))
+    if not Settings.Settings.GetDeltaSettings(currentSettings, lastSettings) == Settings.Settings.EmptySettings():
+        ser.write(bytes(outSettings))
 
     #ITERATION OFFICIALLY ENDS HERE
     #Write to the settings of the previous iteration
-    lastSettings = currentSettings
+    lastSettings = currentSettings.copy()
 
 def updateGUI():
     """

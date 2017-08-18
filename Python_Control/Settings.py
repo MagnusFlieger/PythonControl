@@ -30,7 +30,7 @@ class Settings:
         return Settings(self.speed, self.leftRight, self.upDown,
                         self.front, self.back)
 
-    def isSame(self, comparison):
+    def __eq__(self, comparison):
         """
         Checks if these settings exactly match the comparison
         """
