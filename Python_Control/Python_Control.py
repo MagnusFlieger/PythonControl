@@ -51,21 +51,13 @@ everythingFine = True                               #Are there no errors present
 errorMessage = ""                                   #Detailed error message
 recieved = None                                     #Bytes recieved via XBee
 
-#Speed setting: SPEED_MIN - SPEED_MAX
+# The current settings we have on this controller
 currentSettings = Settings.Settings(SPEED_MIN, LR_HALF, UD_HALF, FRONT_MIN, BACK_MIN)
-#currentSpeedSetting = SPEED_MIN                     #The current, up-to-date speed setting here
-#currentLeftRightSetting = LR_HALF                   #The current, up-to-date left-right setting here
-#currentUpDownSetting = UD_HALF                      #The current, up-to-date up-down setting here
-#currentFrontSetting = FRONT_MIN                     #The current, up-to-date front setting here
-#currentBackSetting = BACK_MIN                       #The current, up-to-date back setting here
 
+# The settings of the previous iteration
 lastSettings = currentSettings.copy()
-#lastSpeedSetting = currentSpeedSetting              #The setting of the previous iteration
-#lastLeftRightSetting = currentLeftRightSetting      #The setting of the previous iteration
-#lastUpDownSetting = currentUpDownSetting            #The setting of the previous iteration
-#lastFrontSetting = currentFrontSetting              #The setting of the previous iteration
-#lastBackSetting = currentBackSetting                #The setting of the previous iteration
 
+# The settings reported by the MagnusFlieger
 arduinoSettings = currentSettings.copy()
 
 def getCOM():
