@@ -250,6 +250,14 @@ def updateGUI():
     textPrint.printEmptyLine(screen)
     textPrint.printLine(screen, "DIAGNOSTICS", GUI.BLUE)
 
+    textPrint.printEmptyLine(screen)
+    textPrint.printLine(screen, "Press START for ")
+    textPrint.printLine(screen, "Press BACK for")
+    textPrint.printLine(screen, "Press Y for ", GUI.YELLOW)
+    textPrint.printLine(screen, "Press X for ", GUI.BLUE)
+    textPrint.printLine(screen, "Press A for ", GUI.GREEN)
+    textPrint.printLine(screen, "Press B for ", GUI.RED)
+
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
     # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
