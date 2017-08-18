@@ -105,17 +105,7 @@ def update():
     Function that controls one iteration of the loop() function
     """
     global currentSettings
-    #global currentSpeedSetting
-    #global currentLeftRightSetting
-    #global currentUpDownSetting
-    #global currentFrontSetting
-    #global currentBackSetting
-
-    global lastSpeedSetting
-    global lastLeftRightSetting
-    global lastUpDownSetting
-    global lastFrontSetting
-    global lastBackSetting
+    global lastSettings
 
     global recieved
     global everythingFine
@@ -244,24 +234,24 @@ def updateGUI():
 
     textPrint.printLine(screen, "Speed")
     textPrint.indent()
-    textPrint.drawProgressBar(screen, (currentSpeedSetting / 100))
+    textPrint.drawProgressBar(screen, (currentSettings.speed / 100))
     textPrint.unindent()
 
     textPrint.printLine(screen, "Left-Right")
     textPrint.indent()
-    textPrint.drawPositiveNegativeProgressBar(screen, (currentLeftRightSetting / 90))
+    textPrint.drawPositiveNegativeProgressBar(screen, (currentSettings.leftRight / 90))
     textPrint.unindent()
 
     textPrint.printLine(screen, "Up-Down")
     textPrint.indent()
-    textPrint.drawPositiveNegativeProgressBar(screen, (currentUpDownSetting / 90))
+    textPrint.drawPositiveNegativeProgressBar(screen, (currentSettings.upDown / 90))
     textPrint.unindent()
 
-    textPrint.printLine(screen, "Current speed setting: " + str(currentSpeedSetting))
-    textPrint.printLine(screen, "Current left right setting: "+ str(currentLeftRightSetting))
-    textPrint.printLine(screen, "Current up down setting: " + str(currentUpDownSetting))
-    textPrint.printLine(screen, "Current front setting: " + str(currentFrontSetting))
-    textPrint.printLine(screen, "Current back setting: " + str(currentBackSetting))
+    textPrint.printLine(screen, "Current speed setting: " + str(currentSettings.speed))
+    textPrint.printLine(screen, "Current left right setting: "+ str(currentSettings.leftRight))
+    textPrint.printLine(screen, "Current up down setting: " + str(currentSettings.upDown))
+    textPrint.printLine(screen, "Current front setting: " + str(currentSettings.front))
+    textPrint.printLine(screen, "Current back setting: " + str(currentSettings.back))
 
     textPrint.printEmptyLine(screen)
     textPrint.printLine(screen, "MAGNUSFLIEGER STATUS", GUI.BLUE)
