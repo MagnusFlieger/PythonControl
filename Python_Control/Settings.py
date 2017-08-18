@@ -60,9 +60,10 @@ class Settings:
     def EmptySettings():
         return Settings(0, 0, 0, 0, 0)
 
-    @staticmethod
-    def KeepInBoundary(val, upperBound, underBound=0):
+
+def KeepInBoundary(val, upperBound, underBound=0):
         if val > upperBound:
-            val = upperBound
+            return upperBound
         if val < underBound:
-            val = underBound
+            return underBound
+        return val

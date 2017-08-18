@@ -140,11 +140,6 @@ def update():
         else:
             pass
 
-        #Get current servo positions
-        currentSpeedPosition = recieved[1]
-        currentLeftRightPosition = recieved[2]
-        currentUpDownPosition = recieved[3]
-
         #Get other data
         
     #Get values from joystick
@@ -182,20 +177,20 @@ def update():
     deltaBack = int(deltaBack * BACK_FACTOR)
 
     #Calculate new current settings
-    currentSettings.speed = currentSettings.speed + deltaSpeed
-    Settings.Settings.KeepInBoundary(currentSettings.speed, SPEED_MAX, SPEED_MIN)
+    currentSettings.speed = Settings.KeepInBoundary(currentSettings.speed + deltaSpeed,
+                                                    SPEED_MAX, SPEED_MIN)
 
-    currentSettings.leftRight = currentSettings.leftRight + deltaLeftRight
-    Settings.Settings.KeepInBoundary(currentSettings.leftRight, LR_MIN, LR_MAX)
+    currentSettings.leftRight = Settings.KeepInBoundary(currentSettings.leftRight + deltaLeftRight,
+                                                        LR_MAX, LR_MIN)
     
-    currentSettings.upDown = currentSettings.upDown + deltaUpDown
-    Settings.Settings.KeepInBoundary(currentSettings.upDown, UD_MAX, UD_MIN)
+    currentSettings.upDown = Settings.KeepInBoundary(currentSettings.upDown + deltaUpDown,
+                                                     UD_MAX, UD_MIN)
     
-    currentSettings.front = currentSettings.front + deltaFront
-    Settings.Settings.KeepInBoundary(currentSettings.front, FRONT_MAX, FRONT_MIN)
+    currentSettings.front = Settings.KeepInBoundary(currentSettings.front + deltaFront,
+                                                    FRONT_MAX, FRONT_MIN)
     
-    currentSettings.back = currentSettings.back + deltaBack
-    Settings.Settings.KeepInBoundary(currentSettings.back, BACK_MAX, BACK_MIN)
+    currentSettings.back = Settings.KeepInBoundary(currentSettings.back + deltaBack,
+                                                   BACK_MAX, BACK_MIN)
 
     #Write to serial
     #Calibrate values so they fit into the 0-180 range
@@ -204,7 +199,7 @@ def update():
                                     currentSettings.upDown + 90,
                                     0,
                                     0)
-    ser.write(bytes([outSettings]))
+    ser.write(bytes(outSettings))
 
     #ITERATION OFFICIALLY ENDS HERE
     #Write to the settings of the previous iteration
