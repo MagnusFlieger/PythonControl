@@ -1,6 +1,10 @@
 """
 This script will run on the main control computer.
 """
+
+__version__ = '0.1'
+__author__ = 'MINT@GESS'
+
 #Imports
 import sys
 from time import sleep
@@ -268,7 +272,9 @@ def updateGUI():
     clock.tick(20)
 
 def init():
-
+    """
+    This function initailizes all of PythonControl
+    """
     global done
     global ser
     global j
@@ -294,7 +300,7 @@ def init():
         exit()
 
     j.init()
-    logging.info('Initialized Joystick : %s' % j.get_name())
+    logging.info('Initialized Joystick: ' + str(j.get_name()))
 
     #Setting up XBee Serial
 
@@ -330,11 +336,12 @@ if __name__ == "__main__":
     #CODE AFTER THIS LINE IS CLEAN UP AFTER EXIT
     #Close serial
 
+    logging.info("Closing serial...")
     ser.close()
-    logging.info("Serial closed")
     # Close the window and quit.
 
     # If you forget this line, the program will 'hang'
     # on exit if running from IDLE.
+    logging.info("Terminating Pygame...")
     pygame.quit()
-    logging.info("Pygame terminated")
+    logging.info("PythonControl terminated")
