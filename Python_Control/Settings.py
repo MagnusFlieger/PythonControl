@@ -54,6 +54,30 @@ class Settings:
             return False
         return True
 
+    def deltaBytes(self, comparison):
+        """
+        Returns the settings which are different with their prefixes. 
+        The values from these Settings will be used, not from the 
+        comparison. 
+        """
+        output = bytes()
+        if self.speed != comparison.speed:
+            output += self.SPEED_PREFIX
+            output += bytes(self.speed)
+        if self.leftRight != comparison.leftRight:
+            output += self.LR_PREFIX
+            output += bytes(self.leftRight)
+        if self.upDown != comparison.upDown:
+            output += self.UD_PREFIX
+            output += bytes(self.upDown)
+        if self.front != comparison.front:
+            output += self.FRONT_PREFIX
+            output += bytes(self.front)
+        if self.back != comparison.back:
+            output += self.BACK_PREFIX
+            output += bytes(self.back)
+        return output
+
     @staticmethod
     def GetDeltaSettings(original, comparison):
         return Settings(comparison.speed - original.speed,
