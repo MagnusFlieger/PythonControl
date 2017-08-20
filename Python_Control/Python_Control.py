@@ -192,12 +192,13 @@ def update():
                                     currentSettings.upDown + 90,
                                     0,
                                     0)
-    if not currentSettings == lastSettings:
-        ser.write(bytes(outSettings))
+    if not outSettings == lastSettings:
+        bys = outSettings.deltaBytes(lastSettings)
+        ser.write(bys)
 
     #ITERATION OFFICIALLY ENDS HERE
     #Write to the settings of the previous iteration
-    lastSettings = currentSettings.copy()
+    lastSettings = outSettings.copy()
 
 def updateGUI():
     """

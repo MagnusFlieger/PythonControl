@@ -63,19 +63,19 @@ class Settings:
         output = bytes()
         if self.speed != comparison.speed:
             output += self.SPEED_PREFIX
-            output += bytes(self.speed)
+            output += bytes([self.speed])
         if self.leftRight != comparison.leftRight:
             output += self.LR_PREFIX
-            output += bytes(self.leftRight)
+            output += bytes([self.leftRight])
         if self.upDown != comparison.upDown:
             output += self.UD_PREFIX
-            output += bytes(self.upDown)
+            output += bytes([self.upDown])
         if self.front != comparison.front:
             output += self.FRONT_PREFIX
-            output += bytes(self.front)
+            output += bytes([self.front])
         if self.back != comparison.back:
             output += self.BACK_PREFIX
-            output += bytes(self.back)
+            output += bytes([self.back])
         return output
 
     @staticmethod
