@@ -18,6 +18,9 @@ class Settings:
         self.upDown = upDownSetting
         self.front = frontSetting
         self.back = backSetting
+        self.stabilizing = None
+        self.sensor = None
+        self.flight_recorder = None
 
     def __str__(self):
         return str(self.speed) + str(self.leftRight) + str(self.upDown) + str(self.front) + str(self.back)
