@@ -5,6 +5,17 @@ class Settings:
     """
     Stores all settings which are necessary for the Arudino
     """
+
+    class BooleanSettingStates:
+        """
+        The possible states of a boolean here
+        """
+        off = 0
+        off_but_awaiting_confirmation = 1
+        on = 2
+        on_but_awaiting_confirmation = 3
+        unknown = 4
+
     # Unique bytes used to identify which settings belong to which
     # setting
     SPEED_PREFIX = b'A'
@@ -26,8 +37,9 @@ class Settings:
     EMERGENCY_MESSAGE = b'Z'
 
     def __init__(self, speedSetting, leftRightSetting, upDownSetting,
-                 frontSetting, backSetting, stabilizing=False,
-                 sensor=False, flight_recorder=False):
+                 frontSetting, backSetting, stabilizing=BooleanSettingStates.off,
+                 sensor=BooleanSettingStates.off,
+                 flight_recorder=BooleanSettingStates.off):
         self.speed = speedSetting
         self.leftRight = leftRightSetting
         self.upDown = upDownSetting

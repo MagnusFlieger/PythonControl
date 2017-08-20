@@ -156,14 +156,7 @@ def update():
     deltaUpDown = j.get_axis(3)     #y-axis of right axis
 
     #Get the values from the buttons
-    startButton = bool(j.get_button(7)) #Start button: Used for initializing everything
-    backButton = bool(j.get_button(6))  #Back button: Used for toggling stabilizing
-    XButton = bool(j.get_button(2))     #X: Used for
-    YButton = bool(j.get_button(3))     #Y: Used for
-    AButton = bool(j.get_button(0))     #A: Used for
-    BButton = bool(j.get_button(1))     #B: Used for
-    LBButton = bool(j.get_button(4))    #LB: Used for
-    RBButton = bool(j.get_button(5))    #RB: Used for
+    j_state = JoystickState.JoystickState.from_joystick(j)
 
     #Get the values from the hat
     hat = j.get_hat(0)
@@ -207,6 +200,7 @@ def update():
     #ITERATION OFFICIALLY ENDS HERE
     #Write to the settings of the previous iteration
     lastSettings = outSettings.copy()
+    previous_j_state = j_state.copy()
 
 def updateGUI():
     """
