@@ -5,6 +5,12 @@ class Settings:
     """
     Stores all settings which are necessary for the Arudino
     """
+    SPEED_PREFIX = b'A'
+    LR_PREFIX = b'D'
+    UD_PREFIX = b'E'
+    FRONT_PREFIX = b'B'
+    BACK_PREFIX = b'C'
+
     def __init__(self, speedSetting, leftRightSetting, upDownSetting,
                  frontSetting, backSetting):
         self.speed = speedSetting
