@@ -17,6 +17,7 @@ import serial.tools.list_ports
 import GUI
 import Settings
 import StatusReport
+import JoystickState
 
 #CONSTANTS
 SPEED_MIN = 0       #Minimum speed value
@@ -58,6 +59,13 @@ lastSettings = Settings.Settings.EmptySettings()
 
 # The settings reported by the MagnusFlieger
 arduinoSettings = currentSettings.copy()
+
+# The current button state we have on this controller
+# This is used to detect when exactly a button has been pressed and lifted
+j_state = JoystickState.JoystickState.empty_state()
+
+# The settings of the previous iteration
+previous_j_state = j_state.copy()
 
 def getCOM():
     """

@@ -22,6 +22,9 @@ class Settings:
     FLIGHT_REC_ON_MESSAGE = b'R'
     FLIGHT_REC_OFF_MESSAGE = b'r'
 
+    # Other one-byte messages
+    EMERGENCY_MESSAGE = b'Z'
+
     def __init__(self, speedSetting, leftRightSetting, upDownSetting,
                  frontSetting, backSetting, stabilizing=False,
                  sensor=False, flight_recorder=False):
@@ -96,6 +99,9 @@ class Settings:
 
     @staticmethod
     def GetDeltaSettings(original, comparison):
+        """
+        Returns the difference between these settings and the comparison
+        """
         return Settings(comparison.speed - original.speed,
                         comparison.leftRight - original.leftRight,
                         comparison.upDown - original.upDown,
@@ -104,10 +110,16 @@ class Settings:
 
     @staticmethod
     def EmptySettings():
+        """
+        Returns empty settings
+        """
         return Settings(0, 0, 0, 0, 0, False, False, False)
 
 
 def KeepInBoundary(val, upperBound, underBound=0):
+        """
+        Automatically keep the value between upperBound and underBound
+        """
         if val > upperBound:
             return upperBound
         if val < underBound:
