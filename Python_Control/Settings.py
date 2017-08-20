@@ -5,22 +5,34 @@ class Settings:
     """
     Stores all settings which are necessary for the Arudino
     """
+    # Unique bytes used to identify which settings belong to which
+    # setting
     SPEED_PREFIX = b'A'
     LR_PREFIX = b'D'
     UD_PREFIX = b'E'
     FRONT_PREFIX = b'B'
     BACK_PREFIX = b'C'
 
+    # One-byte messages sent to the Arduino when the user
+    # intends to toggle a setting
+    STABILIZING_ON_MESSAGE = b'S'
+    STABILIZING_OFF_MESSAGE = b's'
+    SENSORS_ON_MESSAGE = b'G'
+    SENSORS_OFF_MESSAGE = b'g'
+    FLIGHT_REC_ON_MESSAGE = b'R'
+    FLIGHT_REC_OFF_MESSAGE = b'r'
+
     def __init__(self, speedSetting, leftRightSetting, upDownSetting,
-                 frontSetting, backSetting):
+                 frontSetting, backSetting, stabilizing=False,
+                 sensor=False, flight_recorder=False):
         self.speed = speedSetting
         self.leftRight = leftRightSetting
         self.upDown = upDownSetting
         self.front = frontSetting
         self.back = backSetting
-        self.stabilizing = None
-        self.sensor = None
-        self.flight_recorder = None
+        self.stabilizing = stabilizing
+        self.sensor = sensor
+        self.flight_recorder = flight_recorder
 
     def __str__(self):
         return str(self.speed) + str(self.leftRight) + str(self.upDown) + str(self.front) + str(self.back)
@@ -37,7 +49,8 @@ class Settings:
         Creates an identical copy of these settings
         """
         return Settings(self.speed, self.leftRight, self.upDown,
-                        self.front, self.back)
+                        self.front, self.back, self.stabilizing, 
+                        self.sensor, self.flight_recorder)
 
     def __eq__(self, comparison):
         """
@@ -91,7 +104,7 @@ class Settings:
 
     @staticmethod
     def EmptySettings():
-        return Settings(0, 0, 0, 0, 0)
+        return Settings(0, 0, 0, 0, 0, False, False, False)
 
 
 def KeepInBoundary(val, upperBound, underBound=0):
