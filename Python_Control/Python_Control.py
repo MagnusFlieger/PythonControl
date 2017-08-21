@@ -40,8 +40,6 @@ BACK_MIN = 0        #Minimum rotating cylinder (back) value
 BACK_MAX = 100      #Maximum rotating cylinder (back) value
 BACK_FACTOR = 5     #Factor by which the joystick value is multiplied
 
-BYTES_EXPECTED_TO_RECIEVE = 5   #Number of bytes we should get from the Arduino via Xbee
-
 #Variables
 ser = None                                          #The serial port
 j = None                                            #The joystick
@@ -116,35 +114,20 @@ def update():
     global status
 
     #Read from serial
-    recieved = ser.read_all()
-    if len(recieved) != BYTES_EXPECTED_TO_RECIEVE:
-        #Incomplete/insufficient data recieved!
-        everythingFine = False
-        if not recieved:
-            #Nothing recieved!
-            errorMessage = "Nothing recieved via serial!"
-        else:
-            errorMessage = "Wrong amount of data recieved!"
-    
-    else:
-        #Get status report
-        # A - everything ok
-        # B - battery low
-        # C - other battery error
-        # D - motor error
-        # E - servo error
-        # F - sensor error
-        # G - other hardware error
-        # H - internal Arduino error
-        # I - other error
-        statusReport = recieved[0]
-
-        if statusReport != 'A':
-            pass
-        else:
-            pass
-
-        #Get other data
+    available = ser.in_waiting
+    for byte in range(0, available):
+        read = ser.read()
+    #Get status report
+    # A - everything ok
+    # B - battery low
+    # C - other battery error
+    # D - motor error
+    # E - servo error
+    # F - sensor error
+    # G - other hardware error
+    # H - internal Arduino error
+    # I - other error
+    #statusReport = recieved[0]
         
     #Get values from joystick
     deltaSpeed = 0 #Change in speed
@@ -197,6 +180,12 @@ def update():
             logging.info("START pressed")
         if button == JoystickState.JoystickState.Buttons.back:
             logging.info("BACK pressed")
+            # If stabilizing is currently off, toggle it to off (but wait for confirmation)
+            if currentSettings.stabilizing == Settings.Settings.BooleanSettingStates.off:
+                currentSettings.stabilizing = Settings.Settings.BooleanSettingStates.on_but_awaiting_confirmation
+            # If stabilizing is currently off, toggle it to off (but wait for confirmation)
+            if currentSettings.stabilizing == Settings.Settings.BooleanSettingStates.on:
+                currentSettings.stabilizing = Settings.Settings.BooleanSettingStates.off_but_awaiting_confirmation
         if button == JoystickState.JoystickState.Buttons.y:
             logging.info("Y pressed")
         if button == JoystickState.JoystickState.Buttons.x:
