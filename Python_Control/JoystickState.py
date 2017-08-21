@@ -71,6 +71,29 @@ class JoystickState:
             output.append(self.Buttons.rb)
         return output
 
+    def get_pressed_buttons(self, comparison):
+        """
+        Returns a list of buttons now pressed, but previously not pressed
+        """
+        output = list()
+        if self.start_button and not comparison.start_button:
+            output.append(self.Buttons.start)
+        if self.back_button and not comparison.back_button:
+            output.append(self.Buttons.back)
+        if self.a_button and not comparison.a_button:
+            output.append(self.Buttons.a)
+        if self.b_button and not comparison.b_button:
+            output.append(self.Buttons.b)
+        if self.x_button and not comparison.x_button:
+            output.append(self.Buttons.x)
+        if self.y_button and not comparison.y_button:
+            output.append(self.Buttons.y)
+        if self.lb_button and not comparison.lb_button:
+            output.append(self.Buttons.lb)
+        if self.rb_button and not comparison.rb_button:
+            output.append(self.Buttons.rb)
+        return output
+
     @staticmethod
     def empty_state():
         """

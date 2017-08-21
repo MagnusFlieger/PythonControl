@@ -187,6 +187,10 @@ def update():
                                                    BACK_MAX, BACK_MIN)
 
     #Write to serial
+
+    # Send commands
+    
+
     #Calibrate values so they fit into the 0-180 range
     outSettings = Settings.Settings(int(float(currentSettings.speed) * 1.8),
                                     currentSettings.leftRight + 90,
