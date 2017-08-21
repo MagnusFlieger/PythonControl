@@ -65,7 +65,7 @@ arduinoSettings = currentSettings.copy()
 j_state = JoystickState.JoystickState.empty_state()
 
 # The settings of the previous iteration
-previous_j_state = j_state.copy()
+previous_j_state = JoystickState.JoystickState.empty_state()
 
 def getCOM():
     """
@@ -107,6 +107,9 @@ def update():
     """
     global currentSettings
     global lastSettings
+
+    global j_state
+    global previous_j_state
 
     global recieved
 
@@ -189,7 +192,23 @@ def update():
     #Write to serial
 
     # Send commands
-    
+    for button in j_state.get_pressed_buttons(previous_j_state):
+        if button == JoystickState.JoystickState.Buttons.start:
+            logging.info("START pressed")
+        if button == JoystickState.JoystickState.Buttons.back:
+            logging.info("BACK pressed")
+        if button == JoystickState.JoystickState.Buttons.y:
+            logging.info("Y pressed")
+        if button == JoystickState.JoystickState.Buttons.x:
+            logging.info("X pressed")
+        if button == JoystickState.JoystickState.Buttons.a:
+            logging.info("A pressed")
+        if button == JoystickState.JoystickState.Buttons.b:
+            logging.info("B pressed")
+        if button == JoystickState.JoystickState.Buttons.lb:
+            logging.info("LB pressed")
+        if button == JoystickState.JoystickState.Buttons.rb:
+            logging.info("RB pressed")
 
     #Calibrate values so they fit into the 0-180 range
     outSettings = Settings.Settings(int(float(currentSettings.speed) * 1.8),
