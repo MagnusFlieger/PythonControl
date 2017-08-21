@@ -3,11 +3,27 @@ This module provides the class JoystickState
 """
 # IMPORTS
 import pygame
+import enum
+import array
 
 class JoystickState:
     """
     This class stores all button states of a joystick for easy comparison
     """
+
+    class Buttons(enum.Enum):
+        """
+        Represents all available Buttons on the joysticks
+        """
+        start = 0
+        back = 1
+        a = 2
+        b = 3
+        x = 4
+        y = 5
+        lb = 6
+        rb = 7
+
     def __init__(self, start_button, back_button, a_button, b_button, x_button, y_button,
                  lb_button, rb_button):
         self.start_button = start_button
@@ -31,6 +47,29 @@ class JoystickState:
                              self.y_button,
                              self.lb_button,
                              self.rb_button)
+
+    def deltaState(self, comparison):
+        """
+        Returns a list of Buttons which are different
+        """
+        output = list()
+        if self.start_button != comparison.start_button:
+            output.append(self.Buttons.start)
+        if self.back_button != comparison.back_button:
+            output.append(self.Buttons.back)
+        if self.a_button != comparison.a_button:
+            output.append(self.Buttons.a)
+        if self.b_button != comparison.b_button:
+            output.append(self.Buttons.b)
+        if self.x_button != comparison.x_button:
+            output.append(self.Buttons.x)
+        if self.y_button != comparison.y_button:
+            output.append(self.Buttons.y)
+        if self.lb_button != comparison.lb_button:
+            output.append(self.Buttons.lb)
+        if self.rb_button != comparison.rb_button:
+            output.append(self.Buttons.rb)
+        return output
 
     @staticmethod
     def empty_state():

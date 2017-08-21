@@ -285,7 +285,7 @@ def init():
                         level=logging.DEBUG,
                         filename='PythonControl.log')
 
-    logging.info("PythonControl started")
+    logging.info("PythonControl started!")
 
     #Setting up joystick
     pygame.init()
