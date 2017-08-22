@@ -117,6 +117,16 @@ def update():
     available = ser.in_waiting
     for byte in range(0, available):
         read = ser.read()
+        # What does the byte signal?
+        if read == Settings.Settings.STABILIZING_ON_MESSAGE:
+            # Only set Stabilizing on if we really requested that stabilizing be turned on
+            if currentSettings.stabilizing == Settings.BooleanSettingStates.on_but_awaiting_confirmation:
+                currentSettings.stabilizing == Settings.BooleanSettingStates.on
+        if read == Settings.Settings.STABILIZING_OFF_MESSAGE:
+            # Only set Stabilizing off if we really requested that
+            if currentSettings.stabilizing == Settings.BooleanSettingStates.off_but_awaiting_confirmation:
+                currentSettings.stabilizing = Settings.BooleanSettingStates.off
+    
     #Get status report
     # A - everything ok
     # B - battery low
@@ -181,11 +191,11 @@ def update():
         if button == JoystickState.JoystickState.Buttons.back:
             logging.info("BACK pressed")
             # If stabilizing is currently off, toggle it to off (but wait for confirmation)
-            if currentSettings.stabilizing == Settings.Settings.BooleanSettingStates.off:
-                currentSettings.stabilizing = Settings.Settings.BooleanSettingStates.on_but_awaiting_confirmation
+            if currentSettings.stabilizing == Settings.BooleanSettingStates.off:
+                currentSettings.stabilizing = Settings.BooleanSettingStates.on_but_awaiting_confirmation
             # If stabilizing is currently off, toggle it to off (but wait for confirmation)
-            if currentSettings.stabilizing == Settings.Settings.BooleanSettingStates.on:
-                currentSettings.stabilizing = Settings.Settings.BooleanSettingStates.off_but_awaiting_confirmation
+            if currentSettings.stabilizing == Settings.BooleanSettingStates.on:
+                currentSettings.stabilizing = Settings.BooleanSettingStates.off_but_awaiting_confirmation
         if button == JoystickState.JoystickState.Buttons.y:
             logging.info("Y pressed")
         if button == JoystickState.JoystickState.Buttons.x:

@@ -1,20 +1,22 @@
 """
 This module provides the class Settings
 """
+class BooleanSettingStates:
+    """
+    The possible states of a boolean here
+    """
+    off = 0
+    off_but_awaiting_confirmation = 1
+    on = 2
+    on_but_awaiting_confirmation = 3
+    unknown = 4
+
 class Settings:
     """
     Stores all settings which are necessary for the Arudino
     """
 
-    class BooleanSettingStates:
-        """
-        The possible states of a boolean here
-        """
-        off = 0
-        off_but_awaiting_confirmation = 1
-        on = 2
-        on_but_awaiting_confirmation = 3
-        unknown = 4
+    
 
     # Unique bytes used to identify which settings belong to which
     # setting
