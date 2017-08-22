@@ -192,20 +192,43 @@ def update():
             ser.write(Settings.Settings.RESET_MESSAGE)
         if button == JoystickState.JoystickState.Buttons.back:
             logging.info("BACK pressed")
-            # If stabilizing is currently off, toggle it to off (but wait for confirmation)
+            # Toggle self-stabilizing
+            # If stabilizing is currently off, toggle it to on (but wait for confirmation)
             if currentSettings.stabilizing == Settings.BooleanSettingStates.off:
+                ser.write(Settings.Settings.STABILIZING_OFF_MESSAGE)
                 currentSettings.stabilizing = Settings.BooleanSettingStates.on_but_awaiting_confirmation
-            # If stabilizing is currently off, toggle it to off (but wait for confirmation)
+            # If stabilizing is currently on, toggle it to off (but wait for confirmation)
             if currentSettings.stabilizing == Settings.BooleanSettingStates.on:
+                ser.write(Settings.Settings.STABILIZING_ON_MESSAGE)
                 currentSettings.stabilizing = Settings.BooleanSettingStates.off_but_awaiting_confirmation
         if button == JoystickState.JoystickState.Buttons.y:
             logging.info("Y pressed")
+            # Toggle Gyro-Sensor
+            # If sensor is currently off, toggle it to on (but wait for confirmation)
+            if currentSettings.sensor == Settings.BooleanSettingStates.off:
+                ser.write(Settings.Settings.SENSORS_ON_MESSAGE)
+                currentSettings.sensor = Settings.BooleanSettingStates.on_but_awaiting_confirmation
+            # If sensor is currently on, toggle it to off (but wait for confirmation)
+            if currentSettings.sensor == Settings.BooleanSettingStates.on:
+                ser.write(Settings.Settings.SENSORS_OFF_MESSAGE)
+                currentSettings.sensor = Settings.BooleanSettingStates.off_but_awaiting_confirmation
         if button == JoystickState.JoystickState.Buttons.x:
             logging.info("X pressed")
+            # Toggle Flight recorder
+            # If flight recorder is currently off, toggle it to on (but wait for confirmation)
+            if currentSettings.flight_recorder == Settings.BooleanSettingStates.off:
+                ser.write(Settings.Settings.FLIGHT_REC_ON_MESSAGE)
+                currentSettings.flight_recorder = Settings.BooleanSettingStates.on_but_awaiting_confirmation
+            # If flight recorder is currently on, toggle it to off (but wait for confirmation)
+            if currentSettings.flight_recorder == Settings.BooleanSettingStates.on:
+                ser.write(Settings.Settings.FLIGHT_REC_ON_MESSAGE)
+                currentSettings.flight_recorder = Settings.BooleanSettingStates.off_but_awaiting_confirmation
         if button == JoystickState.JoystickState.Buttons.a:
             logging.info("A pressed")
         if button == JoystickState.JoystickState.Buttons.b:
             logging.info("B pressed")
+            # Send an emergency command
+            ser.write(Settings.Settings.EMERGENCY_MESSAGE)
         if button == JoystickState.JoystickState.Buttons.lb:
             logging.info("LB pressed")
         if button == JoystickState.JoystickState.Buttons.rb:
