@@ -188,6 +188,8 @@ def update():
     for button in j_state.get_pressed_buttons(previous_j_state):
         if button == JoystickState.JoystickState.Buttons.start:
             logging.info("START pressed")
+            # Send a reset command
+            ser.write(Settings.Settings.RESET_MESSAGE)
         if button == JoystickState.JoystickState.Buttons.back:
             logging.info("BACK pressed")
             # If stabilizing is currently off, toggle it to off (but wait for confirmation)

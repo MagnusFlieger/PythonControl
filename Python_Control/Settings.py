@@ -36,6 +36,7 @@ class Settings:
     FLIGHT_REC_OFF_MESSAGE = b'r'
 
     # Other one-byte messages
+    RESET_MESSAGE = b'X'
     EMERGENCY_MESSAGE = b'Z'
 
     def __init__(self, speedSetting, leftRightSetting, upDownSetting,
