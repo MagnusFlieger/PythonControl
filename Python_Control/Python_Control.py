@@ -122,10 +122,21 @@ def update():
             # Only set Stabilizing on if we really requested that stabilizing be turned on
             if currentSettings.stabilizing == Settings.BooleanSettingStates.on_but_awaiting_confirmation:
                 currentSettings.stabilizing == Settings.BooleanSettingStates.on
+        
         if read == Settings.Settings.STABILIZING_OFF_MESSAGE:
             # Only set Stabilizing off if we really requested that
             if currentSettings.stabilizing == Settings.BooleanSettingStates.off_but_awaiting_confirmation:
                 currentSettings.stabilizing = Settings.BooleanSettingStates.off
+
+        if read == Settings.Settings.SENSORS_ON_MESSAGE:
+            # Only set Sensors to on if we really requested that
+            if currentSettings.sensor == Settings.BooleanSettingStates.on_but_awaiting_confirmation:
+                currentSettings.sensor = Settings.BooleanSettingStates.on
+
+        if read == Settings.Settings.SENSORS_OFF_MESSAGE:
+            # Only set Sensors to off if we really requested that
+            if currentSettings.sensor == Settings.BooleanSettingStates.off_but_awaiting_confirmation:
+                currentSettings.sensor = Settings.BooleanSettingStates.off
     
     #Get status report
     # A - everything ok
