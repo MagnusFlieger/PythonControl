@@ -115,8 +115,10 @@ def update():
 
     #Read from serial
     available = ser.in_waiting
+    recieved = bytes()
     for byte in range(0, available):
         read = ser.read()
+        recieved += read
         # What does the byte signal?
         if read == Settings.Settings.STABILIZING_ON_MESSAGE:
             # Only set Stabilizing on if we really requested that stabilizing be turned on
