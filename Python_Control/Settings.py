@@ -1,6 +1,9 @@
 """
 This module provides the class Settings
 """
+
+import Comm
+
 class BooleanSettingStates:
     """
     The possible states of a boolean here
@@ -15,27 +18,6 @@ class Settings:
     """
     Stores all settings which are necessary for the Arudino
     """
-
-    # Unique bytes used to identify which settings belong to which
-    # setting
-    SPEED_PREFIX = b'A'
-    LR_PREFIX = b'D'
-    UD_PREFIX = b'E'
-    FRONT_PREFIX = b'B'
-    BACK_PREFIX = b'C'
-
-    # One-byte messages sent to the Arduino when the user
-    # intends to toggle a setting
-    STABILIZING_ON_MESSAGE = b'S'
-    STABILIZING_OFF_MESSAGE = b's'
-    SENSORS_ON_MESSAGE = b'G'
-    SENSORS_OFF_MESSAGE = b'g'
-    FLIGHT_REC_ON_MESSAGE = b'R'
-    FLIGHT_REC_OFF_MESSAGE = b'r'
-
-    # Other one-byte messages
-    RESET_MESSAGE = b'X'
-    EMERGENCY_MESSAGE = b'Z'
 
     def __init__(self, speedSetting, leftRightSetting, upDownSetting,
                  frontSetting, backSetting, stabilizing=BooleanSettingStates.off,

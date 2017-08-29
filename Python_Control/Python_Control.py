@@ -18,6 +18,7 @@ import GUI
 import Settings
 import StatusReport
 import JoystickState
+import Comm
 
 #CONSTANTS
 SPEED_MIN = 0       #Minimum speed value
@@ -199,13 +200,13 @@ def update():
         if button == JoystickState.JoystickState.Buttons.start:
             logging.info("START pressed")
             # Send a reset command
-            ser.write(Settings.Settings.RESET_MESSAGE)
+            ser.write(Comm.S_RESET_COMMAND)
         if button == JoystickState.JoystickState.Buttons.back:
             logging.info("BACK pressed")
             # Toggle self-stabilizing
             # If stabilizing is currently off, toggle it to on (but wait for confirmation)
             if currentSettings.stabilizing == Settings.BooleanSettingStates.off:
-                ser.write(Settings.Settings.STABILIZING_OFF_MESSAGE)
+                ser.write(Comm.S_STABILIZING_ON_COMMAND)
                 currentSettings.stabilizing = Settings.BooleanSettingStates.on_but_awaiting_confirmation
             # If stabilizing is currently on, toggle it to off (but wait for confirmation)
             if currentSettings.stabilizing == Settings.BooleanSettingStates.on:
