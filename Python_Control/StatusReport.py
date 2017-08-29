@@ -11,6 +11,18 @@ class StatusReport:
         self.servosOK = servosOK
         self.arduinoOK = arduinoOK
 
+    def to_detailed_string(self):
+        """
+        Returns a detailed message about the status
+        """
+        return ""
+
+    def to_short_string(self):
+        """
+        Returns a short message
+        """
+        return ""
+
     @staticmethod
     def empty_statusreport():
         """
