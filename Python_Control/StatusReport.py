@@ -10,3 +10,10 @@ class StatusReport:
         self.motorOK = motorOK
         self.servosOK = servosOK
         self.arduinoOK = arduinoOK
+
+    @staticmethod
+    def empty_statusreport():
+        """
+        Return an empty status report
+        """
+        return StatusReport(True, True, True, True)

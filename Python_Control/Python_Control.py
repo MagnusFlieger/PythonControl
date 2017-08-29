@@ -114,11 +114,8 @@ def update():
     global status
 
     #Read from serial
-    available = ser.in_waiting
-    recieved = bytes()
-    for byte in range(0, available):
-        read = ser.read()
-        recieved += read
+    recieved = ser.read_all()
+    for read in recieved:
         # What does the byte signal?
         if read == Settings.Settings.STABILIZING_ON_MESSAGE:
             # Only set Stabilizing on if we really requested that stabilizing be turned on
@@ -150,12 +147,11 @@ def update():
     # G - other hardware error
     # H - internal Arduino error
     # I - other error
-    #statusReport = recieved[0]
         
     #Get values from joystick
-    deltaSpeed = 0 #Change in speed
-    deltaLeftRight = 0 #Change in Left-Right
-    deltaUpDown = 0 #Change in Up-Down
+    deltaSpeed = 0          #Change in speed
+    deltaLeftRight = 0      #Change in Left-Right
+    deltaUpDown = 0         #Change in Up-Down
 
     pygame.event.pump()
 
@@ -198,6 +194,7 @@ def update():
     #Write to serial
 
     # Send commands
+    # Loop through all newly pressed buttons
     for button in j_state.get_pressed_buttons(previous_j_state):
         if button == JoystickState.JoystickState.Buttons.start:
             logging.info("START pressed")
@@ -247,12 +244,16 @@ def update():
         if button == JoystickState.JoystickState.Buttons.rb:
             logging.info("RB pressed")
 
-    #Calibrate values so they fit into the 0-180 range
+    # Calibrate values so they fit into the 0-180 range
+    # We create a final Settings that will be sent directly to the Arduino
     outSettings = Settings.Settings(int(float(currentSettings.speed) * 1.8),
                                     currentSettings.leftRight + 90,
                                     currentSettings.upDown + 90,
                                     0,
                                     0)
+    
+    # If there are differences in the settings last sent 
+    # and the current out settings, then send
     if not outSettings == lastSettings:
         bys = outSettings.deltaBytes(lastSettings)
         ser.write(bys)

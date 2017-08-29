@@ -16,8 +16,6 @@ class Settings:
     Stores all settings which are necessary for the Arudino
     """
 
-    
-
     # Unique bytes used to identify which settings belong to which
     # setting
     SPEED_PREFIX = b'A'
@@ -67,7 +65,7 @@ class Settings:
         Creates an identical copy of these settings
         """
         return Settings(self.speed, self.leftRight, self.upDown,
-                        self.front, self.back, self.stabilizing, 
+                        self.front, self.back, self.stabilizing,
                         self.sensor, self.flight_recorder)
 
     def __eq__(self, comparison):
@@ -90,9 +88,9 @@ class Settings:
 
     def deltaBytes(self, comparison):
         """
-        Returns the settings which are different with their prefixes. 
-        The values from these Settings will be used, not from the 
-        comparison. 
+        Returns the settings which are different with their prefixes.
+        The values from these Settings will be used, not from the
+        comparison.
         """
         output = bytes()
         if self.speed != comparison.speed:
@@ -131,12 +129,12 @@ class Settings:
         return Settings(0, 0, 0, 0, 0, False, False, False)
 
 
-def KeepInBoundary(val, upperBound, underBound=0):
-        """
-        Automatically keep the value between upperBound and underBound
-        """
-        if val > upperBound:
-            return upperBound
-        if val < underBound:
-            return underBound
-        return val
+def KeepInBoundary(val, upper_bound, under_bound=0):
+    """
+    Automatically keep the value between upperBound and underBound
+    """
+    if val > upper_bound:
+        return upper_bound
+    if val < under_bound:
+        return under_bound
+    return val

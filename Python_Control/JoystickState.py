@@ -1,10 +1,12 @@
 """
 This module provides the class JoystickState
 """
+import array
+import enum
+
 # IMPORTS
 import pygame
-import enum
-import array
+
 
 class JoystickState:
     """

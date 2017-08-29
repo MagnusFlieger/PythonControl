@@ -1,12 +1,20 @@
+"""
+This module provides all functions necessary for displaying the GUI
+control window
+"""
 import pygame
 
-# Define some colors
+# Color constants
 BLACK   =   (   0,   0,   0)
 WHITE   =   ( 255, 255, 255)
 BLUE    =   (   0,   0, 255)
 GREEN   =   (   0, 255,   0)
 RED     =   ( 255,   0,   0)
 YELLOW  =   ( 200, 200,   0)
+
+# Drawing constants
+FONT_SIZE = 20
+LINE_HEIGHT = 15
 
 # Progress bar constants
 PROGRESSBAR_WIDTH = 300
@@ -16,16 +24,19 @@ PROGRESSBAR_HEIGHT = 30
 # It has nothing to do with the joysticks, just outputting the
 # information.
 class TextPrint:
+    """
+    The main control window
+    """
     def __init__(self):
         self.reset()
-        self.font = pygame.font.Font(None, 20)
+        self.font = pygame.font.Font(None, FONT_SIZE)
 
-    def print(self, screen, textString, color = BLACK):
-        textBitmap = self.font.render(textString, True, color)
+    def print(self, screen, textString, color=BLACK, bg_color=None):
+        textBitmap = self.font.render(textString, True, color, bg_color)
         screen.blit(textBitmap, [self.x, self.y])
 
-    def printLine(self, screen, textString, color = BLACK):
-        textBitmap = self.font.render(textString, True, color)
+    def printLine(self, screen, textString, color=BLACK, bg_color=None):
+        textBitmap = self.font.render(textString, True, color, bg_color)
         screen.blit(textBitmap, [self.x, self.y])
         self.y += self.line_height
 
@@ -53,7 +64,7 @@ class TextPrint:
     def unindent(self):
         self.x -= 10
     
-if __name__ == "__main__": 
+if __name__ == "__main__":
 
     pygame.init()
 
@@ -68,7 +79,7 @@ if __name__ == "__main__":
 
     # Used to manage how fast the screen updates
     clock = pygame.time.Clock()
-    
+
     # Get ready to print
     textPrint = TextPrint()
 
@@ -79,7 +90,7 @@ if __name__ == "__main__":
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
                 done = True # Flag that we are done so we exit this loop
- 
+
         # DRAWING STEP
         # First, clear the screen to white. Don't put other drawing commands
         # above this, or they will be erased with this command.
@@ -96,16 +107,16 @@ if __name__ == "__main__":
 
         textPrint.print(screen, "Hi")
 
-    
+
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
-    
+
         # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
 
         # Limit to 20 frames per second
         clock.tick(20)
-    
+
     # Close the window and quit.
     # If you forget this line, the program will 'hang'
     # on exit if running from IDLE.
-    pygame.quit ()
+    pygame.quit()
