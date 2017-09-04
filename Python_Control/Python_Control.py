@@ -41,6 +41,9 @@ BACK_MIN = 0        #Minimum rotating cylinder (back) value
 BACK_MAX = 100      #Maximum rotating cylinder (back) value
 BACK_FACTOR = 5     #Factor by which the joystick value is multiplied
 
+MAX_NUM_OF_ITERATIONS = 300     #If this threshold is overshot, we can count the
+                                # connection as lost
+
 #Variables
 ser = None                                          #The serial port
 j = None                                            #The joystick
@@ -48,6 +51,11 @@ screen = None                                       #The window for display
 textPrint = None                                    #The method for drawing text
 clock = None                                        #The method for controlling the display
 status = StatusReport.StatusReport()                #The status of the MagnusFlieger
+iterations_since_last_status_recieved = 0           #The number of iterations since the last
+                                                    # status message was recieved
+is_xbee_communication_alive = False                 #Is a connection established
+                                                    # (in other words: was the last status not
+                                                    # too long ago)
 recieved = None                                     #Bytes recieved via XBee
 
 # The current settings we have on this controller
@@ -113,15 +121,19 @@ def update():
     global recieved
 
     global status
+    global is_xbee_communication_alive
+    global iterations_since_last_status_recieved
 
     #Read from serial
     recieved = ser.read_all()
+    status_recieved = False
     for read in recieved:
         # What does the byte signal?
         # Status reports
         if read == Comm.R_STATUS_OK:
             # Everything is ok
-            pass
+            iterations_since_last_status_recieved = 0
+            status_recieved = True
 
         # Confirmation messages
         if read == Comm.R_STABILIZING_ON_CONFIRM:
@@ -144,6 +156,14 @@ def update():
             if currentSettings.sensor == Settings.BooleanSettingStates.off_but_awaiting_confirmation:
                 currentSettings.sensor = Settings.BooleanSettingStates.off
 
+    #Process status further
+    if status_recieved:
+        is_xbee_communication_alive = True
+    else:
+        iterations_since_last_status_recieved += 1
+        if iterations_since_last_status_recieved > MAX_NUM_OF_ITERATIONS:
+            is_xbee_communication_alive = False
+    
     #Get values from joystick
     deltaSpeed = 0          #Change in speed
     deltaLeftRight = 0      #Change in Left-Right
