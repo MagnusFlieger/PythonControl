@@ -118,6 +118,12 @@ def update():
     recieved = ser.read_all()
     for read in recieved:
         # What does the byte signal?
+        # Status reports
+        if read == Comm.R_STATUS_OK:
+            # Everything is ok
+            pass
+
+        # Confirmation messages
         if read == Comm.R_STABILIZING_ON_CONFIRM:
             # Only set Stabilizing on if we really requested that stabilizing be turned on
             if currentSettings.stabilizing == Settings.BooleanSettingStates.on_but_awaiting_confirmation:
