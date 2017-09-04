@@ -123,32 +123,21 @@ def update():
             if currentSettings.stabilizing == Settings.BooleanSettingStates.on_but_awaiting_confirmation:
                 currentSettings.stabilizing == Settings.BooleanSettingStates.on
         
-        if read == Comm.R_STABILIZING_OFF_CONFIRM:
+        elif read == Comm.R_STABILIZING_OFF_CONFIRM:
             # Only set Stabilizing off if we really requested that
             if currentSettings.stabilizing == Settings.BooleanSettingStates.off_but_awaiting_confirmation:
                 currentSettings.stabilizing = Settings.BooleanSettingStates.off
 
-        if read == Comm.R_SENSORS_ON_CONFIRM:
+        elif read == Comm.R_SENSORS_ON_CONFIRM:
             # Only set Sensors to on if we really requested that
             if currentSettings.sensor == Settings.BooleanSettingStates.on_but_awaiting_confirmation:
                 currentSettings.sensor = Settings.BooleanSettingStates.on
 
-        if read == Comm.R_SENSORS_OFF_CONFIRM:
+        elif read == Comm.R_SENSORS_OFF_CONFIRM:
             # Only set Sensors to off if we really requested that
             if currentSettings.sensor == Settings.BooleanSettingStates.off_but_awaiting_confirmation:
                 currentSettings.sensor = Settings.BooleanSettingStates.off
-    
-    #Get status report
-    # A - everything ok
-    # B - battery low
-    # C - other battery error
-    # D - motor error
-    # E - servo error
-    # F - sensor error
-    # G - other hardware error
-    # H - internal Arduino error
-    # I - other error
-        
+
     #Get values from joystick
     deltaSpeed = 0          #Change in speed
     deltaLeftRight = 0      #Change in Left-Right
