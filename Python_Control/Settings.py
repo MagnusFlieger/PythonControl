@@ -76,19 +76,19 @@ class Settings:
         """
         output = bytes()
         if self.speed != comparison.speed:
-            output += self.SPEED_PREFIX
+            output += Comm.S_SPEED_PREFIX
             output += bytes([self.speed])
         if self.leftRight != comparison.leftRight:
-            output += self.LR_PREFIX
+            output += Comm.S_LR_PREFIX
             output += bytes([self.leftRight])
         if self.upDown != comparison.upDown:
-            output += self.UD_PREFIX
+            output += Comm.S_UD_PREFIX
             output += bytes([self.upDown])
         if self.front != comparison.front:
-            output += self.FRONT_PREFIX
+            output += Comm.S_FRONT_PREFIX
             output += bytes([self.front])
         if self.back != comparison.back:
-            output += self.BACK_PREFIX
+            output += Comm.S_BACK_PREFIX
             output += bytes([self.back])
         return output
 
