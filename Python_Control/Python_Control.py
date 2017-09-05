@@ -161,6 +161,8 @@ def update():
         is_xbee_communication_alive = True
     else:
         iterations_since_last_status_recieved += 1
+        # If the number of iterations since the last status was recieved
+        # exceeds the threshold, the connection is not alive anymore. 
         if iterations_since_last_status_recieved > MAX_NUM_OF_ITERATIONS:
             is_xbee_communication_alive = False
     
