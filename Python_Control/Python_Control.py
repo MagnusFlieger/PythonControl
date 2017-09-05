@@ -327,6 +327,12 @@ def updateGUI():
     textPrint.printEmptyLine(screen)
     textPrint.printLine(screen, "MAGNUSFLIEGER STATUS", GUI.BLUE)
 
+    if is_xbee_communication_alive:
+        textPrint.printLine(screen, "Connection alive")
+    else:
+        textPrint.printLine(screen, "Connection dead", GUI.RED)
+    textPrint.printLine(screen, "Iterations since last status report" +
+                        str(iterations_since_last_status_recieved))
     textPrint.printLine(screen, "Recieved via serial: " + str(recieved))
 
     textPrint.printEmptyLine(screen)
