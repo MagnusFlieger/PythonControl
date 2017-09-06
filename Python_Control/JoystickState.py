@@ -102,7 +102,7 @@ class JoystickState:
         Returns an empty class
         """
         return JoystickState(False, False, False, False, False, False, False, False)
-    
+
     @staticmethod
     def from_joystick(j):
         """

@@ -218,6 +218,7 @@ def update():
             logging.info("START pressed")
             # Send a reset command
             ser.write(Comm.S_RESET_COMMAND)
+
         if button == JoystickState.JoystickState.Buttons.back:
             logging.info("BACK pressed")
             # Toggle self-stabilizing
@@ -229,6 +230,7 @@ def update():
             if currentSettings.stabilizing == Settings.BooleanSettingStates.on:
                 ser.write(Comm.S_STABILIZING_OFF_COMMAND)
                 currentSettings.stabilizing = Settings.BooleanSettingStates.off_but_awaiting_confirmation
+
         if button == JoystickState.JoystickState.Buttons.y:
             logging.info("Y pressed")
             # Toggle Gyro-Sensor
@@ -240,6 +242,7 @@ def update():
             if currentSettings.sensor == Settings.BooleanSettingStates.on:
                 ser.write(Comm.S_SENSORS_OFF_COMMAND)
                 currentSettings.sensor = Settings.BooleanSettingStates.off_but_awaiting_confirmation
+
         if button == JoystickState.JoystickState.Buttons.x:
             logging.info("X pressed")
             # Toggle Flight recorder
@@ -251,6 +254,7 @@ def update():
             if currentSettings.flight_recorder == Settings.BooleanSettingStates.on:
                 ser.write(Comm.S_FLIGHT_REC_OFF_COMMAND)
                 currentSettings.flight_recorder = Settings.BooleanSettingStates.off_but_awaiting_confirmation
+
         if button == JoystickState.JoystickState.Buttons.a:
             logging.info("A pressed")
         if button == JoystickState.JoystickState.Buttons.b:

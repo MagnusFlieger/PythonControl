@@ -43,24 +43,24 @@ class TextPrint:
     def printEmptyLine(self, screen):
         self.y += self.line_height
 
-    def drawProgressBar(self, screen, progress, color = BLACK):
+    def drawProgressBar(self, screen, progress, color=BLACK):
         pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH,PROGRESSBAR_HEIGHT), 1)
         pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH*progress,PROGRESSBAR_HEIGHT))
         self.y += PROGRESSBAR_HEIGHT
 
-    def drawPositiveNegativeProgressBar(self, screen, progress, color = BLACK):
+    def drawPositiveNegativeProgressBar(self, screen, progress, color=BLACK):
         pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH, PROGRESSBAR_HEIGHT), 1)
         pygame.draw.rect(screen, color, pygame.Rect(self.x + PROGRESSBAR_WIDTH/2, self.y, PROGRESSBAR_WIDTH/2*progress, PROGRESSBAR_HEIGHT))
         self.y += PROGRESSBAR_HEIGHT
-        
+
     def reset(self):
         self.x = 10
         self.y = 10
         self.line_height = 15
-        
+
     def indent(self):
         self.x += 10
-        
+
     def unindent(self):
         self.x -= 10
     
