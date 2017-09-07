@@ -56,6 +56,18 @@ class StatusReport:
         """
         if char == Comm.R_STATUS_OK:
             self.everything_ok = True
+        elif char == Comm.R_STATUS_ARDUINO_FAULT:
+            self.arduino_ok = False
+        elif char == Comm.R_STATUS_BATTERY_FAULT:
+            self.battery_ok = False
+        elif char == Comm.R_STATUS_FLIGHT_REC_FAULT:
+            self.flight_rec_ok = False
+        elif char == Comm.R_STATUS_MOTOR_FAULT:
+            self.motor_ok = False
+        elif char == Comm.R_STATUS_SENSOR_FAULT:
+            self.sensors_ok = False
+        elif char == Comm.R_STATUS_UNKNOWN_FAULT:
+            pass
 
     @staticmethod
     def empty_statusreport():
