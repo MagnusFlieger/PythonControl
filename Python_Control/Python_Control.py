@@ -130,8 +130,8 @@ def update():
     for read in recieved:
         # What does the byte signal?
         # Status reports
-        if read == Comm.R_STATUS_OK:
-            # Everything is ok
+        if StatusReport.StatusReport.is_status_char(read):
+            status.parse_char(read)
             iterations_since_last_status_recieved = 0
             status_recieved = True
 
@@ -162,7 +162,7 @@ def update():
     else:
         iterations_since_last_status_recieved += 1
         # If the number of iterations since the last status was recieved
-        # exceeds the threshold, the connection is not alive anymore. 
+        # exceeds the threshold, the connection is not alive anymore.
         if iterations_since_last_status_recieved > MAX_NUM_OF_ITERATIONS:
             is_xbee_communication_alive = False
     
