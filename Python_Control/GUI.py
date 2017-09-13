@@ -7,6 +7,9 @@ import pygame
 # Color constants
 BLACK   =   (   0,   0,   0)
 WHITE   =   ( 255, 255, 255)
+GRAY    =   ( 128, 128, 128)
+LI_GRAY =   ( 204, 204, 224)
+DA_GRAY =   (  77,  77,  77)
 BLUE    =   (   0,   0, 255)
 GREEN   =   (   0, 255,   0)
 RED     =   ( 255,   0,   0)
