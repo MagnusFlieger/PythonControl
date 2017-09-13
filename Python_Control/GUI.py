@@ -23,6 +23,10 @@ LINE_HEIGHT = 15
 PROGRESSBAR_WIDTH = 300
 PROGRESSBAR_HEIGHT = 30
 
+# Boolean box constants
+BOOL_BOX_WIDTH = 100
+BOOL_BOX_HEIGHT = 30
+
 # This is a simple class that will help us print to the screen
 # It has nothing to do with the joysticks, just outputting the
 # information.
@@ -55,6 +59,9 @@ class TextPrint:
         pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH, PROGRESSBAR_HEIGHT), 1)
         pygame.draw.rect(screen, color, pygame.Rect(self.x + PROGRESSBAR_WIDTH/2, self.y, PROGRESSBAR_WIDTH/2*progress, PROGRESSBAR_HEIGHT))
         self.y += PROGRESSBAR_HEIGHT
+
+    def drawBooleanBox(self, screen, bg_color=WHITE, fg_color=BLACK):
+        pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, BOOL_BOX_WIDTH, BOOL_BOX_HEIGHT), 1)
 
     def reset(self):
         self.x = 10
