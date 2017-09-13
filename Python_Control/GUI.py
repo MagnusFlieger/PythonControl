@@ -18,6 +18,7 @@ YELLOW  =   ( 200, 200,   0)
 # Drawing constants
 FONT_SIZE = 20
 LINE_HEIGHT = 15
+INDENT_SIZE = 10
 
 # Progress bar constants
 PROGRESSBAR_WIDTH = 300
@@ -39,23 +40,39 @@ class TextPrint:
         self.font = pygame.font.Font(None, FONT_SIZE)
 
     def print(self, screen, textString, color=BLACK, bg_color=None):
+        """
+        Prints some text to the screen
+        """
         textBitmap = self.font.render(textString, True, color, bg_color)
         screen.blit(textBitmap, [self.x, self.y])
 
     def printLine(self, screen, textString, color=BLACK, bg_color=None):
+        """
+        Prints some text to the screen and shifts the
+        next text a line below the current text.
+        """
         textBitmap = self.font.render(textString, True, color, bg_color)
         screen.blit(textBitmap, [self.x, self.y])
-        self.y += self.line_height
+        self.y += LINE_HEIGHT
 
     def printEmptyLine(self, screen):
-        self.y += self.line_height
+        """
+        Shifts the current drawing pointer one line down
+        """
+        self.y += LINE_HEIGHT
 
     def drawProgressBar(self, screen, progress, color=BLACK):
+        """
+        Draws a simple progress bar. Progress must be between 0 and 1.
+        """
         pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH,PROGRESSBAR_HEIGHT), 1)
         pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH*progress,PROGRESSBAR_HEIGHT))
         self.y += PROGRESSBAR_HEIGHT
 
     def drawPositiveNegativeProgressBar(self, screen, progress, color=BLACK):
+        """
+        Draws a progress bar that can go positive and negative. Progress must be between -1 and 1.
+        """
         pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH, PROGRESSBAR_HEIGHT), 1)
         pygame.draw.rect(screen, color, pygame.Rect(self.x + PROGRESSBAR_WIDTH/2, self.y, PROGRESSBAR_WIDTH/2*progress, PROGRESSBAR_HEIGHT))
         self.y += PROGRESSBAR_HEIGHT
@@ -66,13 +83,12 @@ class TextPrint:
     def reset(self):
         self.x = 10
         self.y = 10
-        self.line_height = 15
 
     def indent(self):
-        self.x += 10
+        self.x += INDENT_SIZE
 
     def unindent(self):
-        self.x -= 10
+        self.x -= INDENT_SIZE
     
 if __name__ == "__main__":
 
