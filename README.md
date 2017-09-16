@@ -1,5 +1,7 @@
 # Python
 
+[![Build Status](https://travis-ci.org/MagnusFlieger/PythonControl.svg?branch=master)](https://travis-ci.org/MagnusFlieger/PythonControl)
+
 Hier kommt der ganze Code rein, der später auf den **Steuercomputer** mit Python geladen wird.
 
 ## Installation
