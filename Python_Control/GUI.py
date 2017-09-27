@@ -42,6 +42,8 @@ class TextPrint:
     def print(self, screen, textString, color=BLACK, bg_color=None):
         """
         Prints some text to the screen
+        ATTENTION: This doesn't move x and y positions, so your
+        text might end up dirty
         """
         textBitmap = self.font.render(textString, True, color, bg_color)
         screen.blit(textBitmap, [self.x, self.y])
@@ -78,12 +80,20 @@ class TextPrint:
         pygame.draw.rect(screen, color, pygame.Rect(self.x + PROGRESSBAR_WIDTH/2, self.y, PROGRESSBAR_WIDTH/2*progress, PROGRESSBAR_HEIGHT))
         self.y += PROGRESSBAR_HEIGHT
 
-    def drawBooleanBox(self, screen, bg_color=WHITE, fg_color=BLACK):
+    def drawBooleanBox(self, screen, text, boolean_expr, bg_color_true=WHITE, bg_color_false=GRAY, fg_color=BLACK):
         """
         Draws a box that displays a status according
         to the color given
         """
-        pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, BOOL_BOX_WIDTH, BOOL_BOX_HEIGHT), 1)
+        if boolean_expr:
+            bg_color = bg_color_true
+        else:
+            bg_color = bg_color_false
+        pygame.draw.rect(screen, fg_color, pygame.Rect(self.x, self.y, BOOL_BOX_WIDTH, BOOL_BOX_HEIGHT), 1)
+        pygame.draw.rect(screen, bg_color, pygame.Rect(self.x, self.y, BOOL_BOX_WIDTH, BOOL_BOX_HEIGHT))
+        textBitmap = self.font.render(text, True, fg_color, bg_color)
+        text_rect = textBitmap.get_rect(center=(self.x+BOOL_BOX_WIDTH/2, self.y+BOOL_BOX_HEIGHT/2))
+        screen.blit(textBitmap, text_rect)
 
     def reset(self):
         """
@@ -103,6 +113,18 @@ class TextPrint:
         Removes an indentation at the current position
         """
         self.x -= INDENT_SIZE
+
+    def indent_box(self):
+        """
+        Adds an indentation at the current position
+        """
+        self.x += BOOL_BOX_WIDTH
+
+    def unindent_box(self):
+        """
+        Removes an indentation at the current position
+        """
+        self.x -= BOOL_BOX_WIDTH
 
 if __name__ == "__main__":
 
@@ -138,15 +160,17 @@ if __name__ == "__main__":
         textPrint.reset()
 
         # Get count of joysticks
-        textPrint.print(screen, "Hello")
-        textPrint.print(screen, "World")
+        textPrint.printLine(screen, "Hello")
+        textPrint.printLine(screen, "World")
 
         textPrint.indent()
         textPrint.drawProgressBar(screen, 0.3)
         textPrint.unindent()
 
-        textPrint.print(screen, "Hi")
-
+        textPrint.drawBooleanBox(screen, "Status good", True, fg_color=WHITE, bg_color_true=GREEN)
+        textPrint.indent_box()
+        textPrint.drawBooleanBox(screen, "Status bad", True, fg_color=WHITE, bg_color_true=RED)
+        textPrint.unindent_box()
 
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 

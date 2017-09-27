@@ -307,6 +307,9 @@ def updateGUI():
     # Now print info
     textPrint.printLine(screen, "CONTROL PANEL", GUI.BLUE)
 
+    textPrint.drawBooleanBox(screen, "Connection", is_xbee_communication_alive,
+                             bg_color_true=GUI.GREEN, bg_color_false=GUI.DA_GRAY)
+
     textPrint.printLine(screen, "Speed")
     textPrint.indent()
     textPrint.drawProgressBar(screen, (currentSettings.speed / 100))
