@@ -71,25 +71,39 @@ class TextPrint:
 
     def drawPositiveNegativeProgressBar(self, screen, progress, color=BLACK):
         """
-        Draws a progress bar that can go positive and negative. Progress must be between -1 and 1.
+        Draws a progress bar that can go positive and negative.
+        Progress must be between -1 and 1.
         """
         pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, PROGRESSBAR_WIDTH, PROGRESSBAR_HEIGHT), 1)
         pygame.draw.rect(screen, color, pygame.Rect(self.x + PROGRESSBAR_WIDTH/2, self.y, PROGRESSBAR_WIDTH/2*progress, PROGRESSBAR_HEIGHT))
         self.y += PROGRESSBAR_HEIGHT
 
     def drawBooleanBox(self, screen, bg_color=WHITE, fg_color=BLACK):
+        """
+        Draws a box that displays a status according
+        to the color given
+        """
         pygame.draw.rect(screen, color, pygame.Rect(self.x, self.y, BOOL_BOX_WIDTH, BOOL_BOX_HEIGHT), 1)
 
     def reset(self):
+        """
+        Resets the x and y values to start from the top
+        """
         self.x = 10
         self.y = 10
 
     def indent(self):
+        """
+        Adds an indentation at the current position
+        """
         self.x += INDENT_SIZE
 
     def unindent(self):
+        """
+        Removes an indentation at the current position
+        """
         self.x -= INDENT_SIZE
-    
+
 if __name__ == "__main__":
 
     pygame.init()
