@@ -102,29 +102,29 @@ class TextPrint:
         self.x = 10
         self.y = 10
 
-    def indent(self):
+    def indent(self, number_of_indents=1):
+        """
+        Adds indentations at the current position
+        """
+        self.x += number_of_indents * INDENT_SIZE
+
+    def unindent(self, number_of_indents=1):
+        """
+        Removes indentations at the current position
+        """
+        self.indent(-1 * number_of_indents)
+
+    def indent_box(self, number_of_indents=1):
         """
         Adds an indentation at the current position
         """
-        self.x += INDENT_SIZE
+        self.x += number_of_indents * BOOL_BOX_WIDTH
 
-    def unindent(self):
+    def unindent_box(self, number_of_indents=1):
         """
         Removes an indentation at the current position
         """
-        self.x -= INDENT_SIZE
-
-    def indent_box(self):
-        """
-        Adds an indentation at the current position
-        """
-        self.x += BOOL_BOX_WIDTH
-
-    def unindent_box(self):
-        """
-        Removes an indentation at the current position
-        """
-        self.x -= BOOL_BOX_WIDTH
+        self.unindent_box(-1 * number_of_indents)
 
 if __name__ == "__main__":
 

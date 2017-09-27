@@ -309,8 +309,10 @@ def updateGUI():
 
     textPrint.drawBooleanBox(screen, "Connection", is_xbee_communication_alive,
                              bg_color_true=GUI.GREEN, bg_color_false=GUI.DA_GRAY)
+    textPrint.indent_box()
     textPrint.drawBooleanBox(screen, "Master", status.everything_ok,
                              bg_color_true=GUI.GREEN, bg_color_false=GUI.RED)
+    textPrint.unindent_box()
 
     textPrint.printLine(screen, "Speed")
     textPrint.indent()
