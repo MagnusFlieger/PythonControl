@@ -77,16 +77,6 @@ class StatusReport:
         return StatusReport(True)
 
     @staticmethod
-    def from_status_chars(chars):
-        """
-        Return a new status report instance based on the infos given
-        by the status chars
-        """
-        for char in chars:
-            if char == Comm.R_STATUS_OK:
-                return StatusReport(True)
-
-    @staticmethod
     def is_status_char(char):
         """
         Returns wheter the given char is a valid status char

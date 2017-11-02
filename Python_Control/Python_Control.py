@@ -6,19 +6,19 @@ __version__ = '0.1'
 __author__ = 'MINT@GESS'
 
 #Imports
+import logging
 import sys
 from time import sleep
-import logging
 
 import pygame
 import serial
 import serial.tools.list_ports
 
+import Comm
 import GUI
+import JoystickState
 import Settings
 import StatusReport
-import JoystickState
-import Comm
 
 #CONSTANTS
 SPEED_MIN = 0       #Minimum speed value
@@ -55,7 +55,7 @@ iterations_since_last_status_recieved = 0           #The number of iterations si
                                                     # status message was recieved
 is_xbee_communication_alive = False                 #Is a connection established
                                                     # (in other words: was the last status not
-                                                    # too long ago)
+                                                    #  too long ago)
 recieved = None                                     #Bytes recieved via XBee
 
 # The current settings we have on this controller
@@ -74,7 +74,7 @@ j_state = JoystickState.JoystickState.empty_state()
 # The settings of the previous iteration
 previous_j_state = JoystickState.JoystickState.empty_state()
 
-def getCOM():
+def get_com_port():
     """
     Function that returns the COM port of the XBee (if available)
     """
@@ -399,7 +399,7 @@ def init():
     #Setting up XBee Serial
 
     try:
-        serialport = getCOM()
+        serialport = get_com_port()
         logging.info("Establishing connection to: " + str(serialport))
         ser = serial.Serial(serialport, 9600, timeout=1)
     except:
