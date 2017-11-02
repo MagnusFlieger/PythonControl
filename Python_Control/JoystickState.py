@@ -1,7 +1,6 @@
 """
 This module provides the class JoystickState
 """
-import array
 import enum
 
 # IMPORTS

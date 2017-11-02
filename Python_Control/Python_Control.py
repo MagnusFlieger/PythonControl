@@ -313,6 +313,7 @@ def updateGUI():
     textPrint.drawBooleanBox(screen, "Master", status.everything_ok,
                              bg_color_true=GUI.GREEN, bg_color_false=GUI.RED)
     textPrint.unindent_box()
+    textPrint.add_spacing(GUI.BOOL_BOX_HEIGHT)
 
     textPrint.printLine(screen, "Speed")
     textPrint.indent()

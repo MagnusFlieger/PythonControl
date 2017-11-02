@@ -124,7 +124,10 @@ class TextPrint:
         """
         Removes an indentation at the current position
         """
-        self.unindent_box(-1 * number_of_indents)
+        self.indent_box(-1 * number_of_indents)
+
+    def add_spacing(self, length):
+        self.y += length
 
 if __name__ == "__main__":
 
